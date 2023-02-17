@@ -201,6 +201,7 @@ MonoBehaviour:
   sprite: {fileID: 1938187139}
   m_jumpMultiplier: 1.1
   m_breakAggressiveness: 1.15
+  m_airMomentum: 0.0625
 --- !u!1 &45722928
 GameObject:
   m_ObjectHideFlags: 0
