@@ -4,12 +4,14 @@ using TMPro;
 
 public class PlayerMove : MonoBehaviour
 {
+    GameManager gameManager;
+
     [Header("References")]
     [SerializeField] GetThatInput inputManager;
-    [SerializeField] TMP_Text speed;
-    [SerializeField] TMP_Text maxSpeed;
-    [SerializeField] TMP_Text jumpHeight;
-    [SerializeField] TMP_Text xspeed;
+    TMP_Text speed;
+    TMP_Text maxSpeed;
+    TMP_Text jumpHeight;
+    TMP_Text xspeed;
     [SerializeField] Transform overlapPoint;
     [SerializeField] LayerMask groundLayer;
     Rigidbody2D rb;
@@ -26,13 +28,20 @@ public class PlayerMove : MonoBehaviour
     bool m_breaking;
     float m_storedBreak = 0f;
     float m_topSpeed = 0f;
-    [SerializeField]bool m_grounded;
+    bool m_grounded;
     
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         rb.freezeRotation = true;
+
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+
+        speed = GameObject.Find("Canvas/Speed").GetComponent<TMP_Text>();
+        maxSpeed = GameObject.Find("Canvas/MaxSpeed").GetComponent<TMP_Text>();
+        jumpHeight = GameObject.Find("Canvas/JumpHeight").GetComponent<TMP_Text>();
+        xspeed = GameObject.Find("Canvas/XSpeed").GetComponent<TMP_Text>();
     }
 
     // Update is called once per frame
