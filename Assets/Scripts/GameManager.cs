@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] float m_gravity;
     void Awake()
     {
+        SceneManager.LoadScene("Scenes/Level", LoadSceneMode.Additive);
         SceneManager.LoadScene("Scenes/UI", LoadSceneMode.Additive);
         SceneManager.LoadScene("Scenes/Player", LoadSceneMode.Additive);
     }
