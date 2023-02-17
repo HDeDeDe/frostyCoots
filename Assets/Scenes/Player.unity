@@ -134,6 +134,8 @@ GameObject:
   - component: {fileID: 14802733}
   - component: {fileID: 14802731}
   - component: {fileID: 14802734}
+  - component: {fileID: 14802735}
+  - component: {fileID: 14802736}
   m_Layer: 3
   m_Name: the square
   m_TagString: Untagged
@@ -202,6 +204,38 @@ MonoBehaviour:
   m_jumpMultiplier: 1.1
   m_breakAggressiveness: 1.15
   m_airMomentum: 0.0625
+--- !u!95 &14802735
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 14802729}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 42141d80bf680c346b639eb2baf7bb3b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+--- !u!114 &14802736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 14802729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9882ca954aba1d8478b5a1b189af4521, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &45722928
 GameObject:
   m_ObjectHideFlags: 0

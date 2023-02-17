@@ -16,6 +16,7 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] LayerMask groundLayer;
     [SerializeField] SpriteRenderer sprite;
     Rigidbody2D rb;
+    PlayerAnim pAnim;
 
     //Variables
     [Header("Variables")]
@@ -39,6 +40,8 @@ public class PlayerMove : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         rb.freezeRotation = true;
+
+        pAnim = GetComponent<PlayerAnim>();
 
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 
@@ -82,6 +85,7 @@ public class PlayerMove : MonoBehaviour
     {
         if(!m_grounded)
         {
+            pAnim.Idle();
             m_topSpeed = 0f;
             m_storedBreak = 0f;
             Vector2 potentialVector = m_moveVec * m_airMomentum;
@@ -91,6 +95,7 @@ public class PlayerMove : MonoBehaviour
 
         if(!m_breaking)
         {
+            pAnim.EndBreak();
             Vector2 potentialVector = m_moveVec;
             if(m_storedBreak > 0f) 
             {
@@ -104,6 +109,7 @@ public class PlayerMove : MonoBehaviour
 
         if(Math.Abs(rb.velocity.x) > 0)
         {
+            pAnim.Break();
             Vector2 potentialVector;
             float percent = m_topSpeed / (m_breakAggressiveness * 50);
             if(Math.Abs(rb.velocity.x) > percent)
