@@ -2,14 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-enum AnimState : byte
-{
-    IDLE,
-    BREAKING,
-    BREAKSTART,
-    BREAKEND
-}
-
 public class PlayerAnim : MonoBehaviour
 {
     Animator animator;

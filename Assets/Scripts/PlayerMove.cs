@@ -4,14 +4,10 @@ using TMPro;
 
 public class PlayerMove : MonoBehaviour
 {
-    GameManager gameManager;
+    GameManager gm;
 
     [Header("References")]
     [SerializeField] GetThatInput inputManager;
-    TMP_Text speed;
-    TMP_Text maxSpeed;
-    TMP_Text jumpHeight;
-    TMP_Text xspeed;
     [SerializeField] Transform overlapPoint;
     [SerializeField] LayerMask groundLayer;
     [SerializeField] SpriteRenderer sprite;
@@ -19,15 +15,6 @@ public class PlayerMove : MonoBehaviour
     PlayerAnim pAnim;
 
     //Variables
-    [Header("Variables")]
-    [Range(0f, 5f)][Tooltip("Affects how high the player jumps.")]
-    public float m_jumpMultiplier;
-    [Range(0f, 5f)][Tooltip("Affects how long it takes to break.")]
-    public float m_breakAggressiveness;
-    [Range(0.000001f, 0.1f)][Tooltip("Affects air momentum.")]
-    public float m_airMomentum = 0.0625f;
-    const float m_velocityLimit = 2500f;
-    readonly Vector2 m_overlapBox = new(0.45f, 0.125f);
     Vector2 m_moveVec;
     bool m_breaking;
     float m_storedBreak = 0f;
@@ -43,12 +30,7 @@ public class PlayerMove : MonoBehaviour
 
         pAnim = GetComponent<PlayerAnim>();
 
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-
-        speed = GameObject.Find("Canvas/Speed").GetComponent<TMP_Text>();
-        maxSpeed = GameObject.Find("Canvas/MaxSpeed").GetComponent<TMP_Text>();
-        jumpHeight = GameObject.Find("Canvas/JumpHeight").GetComponent<TMP_Text>();
-        xspeed = GameObject.Find("Canvas/XSpeed").GetComponent<TMP_Text>();
+        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     // Update is called once per frame
@@ -58,11 +40,6 @@ public class PlayerMove : MonoBehaviour
         //rb.AddForce(m_moveVec * Time.deltaTime, ForceMode2D.Force);
         m_breaking = inputManager.GetHalt();
         
-        speed.SetText(Convert.ToString(rb.velocity.magnitude));
-        maxSpeed.SetText(Convert.ToString(m_topSpeed));
-        jumpHeight.SetText(Convert.ToString(m_storedBreak));
-        xspeed.SetText(Convert.ToString(Math.Abs(rb.velocity.x)));
-
         GroundCheck();
 
         sprite.transform.localEulerAngles = m_rotation;
@@ -88,7 +65,7 @@ public class PlayerMove : MonoBehaviour
             pAnim.Idle();
             m_topSpeed = 0f;
             m_storedBreak = 0f;
-            Vector2 potentialVector = m_moveVec * m_airMomentum;
+            Vector2 potentialVector = m_moveVec * gm.AirMomentum();
             rb.velocity += potentialVector;
             return;
         }
@@ -111,7 +88,7 @@ public class PlayerMove : MonoBehaviour
         {
             pAnim.Break();
             Vector2 potentialVector;
-            float percent = m_topSpeed / (m_breakAggressiveness * 50);
+            float percent = m_topSpeed / (gm.BreakAggro() * 50);
             if(Math.Abs(rb.velocity.x) > percent)
             {
                 potentialVector.x = percent;
@@ -124,7 +101,7 @@ public class PlayerMove : MonoBehaviour
                 {
                     rb.velocity += potentialVector;
                 }
-                m_storedBreak += percent * m_jumpMultiplier;
+                m_storedBreak += percent * gm.JumpMultiplier();
                 return;
             }
 
@@ -137,12 +114,12 @@ public class PlayerMove : MonoBehaviour
 
     private void CapSpeed()
     {
-        rb.velocity = new(Math.Clamp(rb.velocity.x, m_velocityLimit * -1, m_velocityLimit), Math.Clamp(rb.velocity.y, m_velocityLimit * -1, m_velocityLimit));
+        rb.velocity = new(Math.Clamp(rb.velocity.x, PVTools.velocityLimit * -1, PVTools.velocityLimit), Math.Clamp(rb.velocity.y, PVTools.velocityLimit * -1, PVTools.velocityLimit));
     }
 
     private void GroundCheck()
     {
-        m_grounded = OverlapCheck(Physics2D.OverlapBox(overlapPoint.position, m_overlapBox, 0f, groundLayer));
+        m_grounded = OverlapCheck(Physics2D.OverlapBox(overlapPoint.position, PVTools.overlapBox, 0f, groundLayer));
     }
 
     private bool OverlapCheck(Collider2D objectArray)
@@ -160,5 +137,15 @@ public class PlayerMove : MonoBehaviour
     {
         rb.velocity = Vector2.zero;
         transform.position = Vector2.zero;
+    }
+
+    public Vector2 GetVelocity()
+    {
+        return rb.velocity;
+    }
+    public Vector2 GetSpeedInfo()
+    {
+        Vector2 i = new(m_topSpeed, m_storedBreak);
+        return i;
     }
 }
