@@ -32,6 +32,7 @@ public class PlayerMove : MonoBehaviour
     float m_storedBreak = 0f;
     float m_topSpeed = 0f;
     bool m_grounded;
+    Vector3 m_rotation;
     
     // Start is called before the first frame update
     void Start()
@@ -60,6 +61,8 @@ public class PlayerMove : MonoBehaviour
         xspeed.SetText(Convert.ToString(Math.Abs(rb.velocity.x)));
 
         GroundCheck();
+
+        sprite.transform.localEulerAngles = m_rotation;
 
         if(rb.velocity.x < 0)
         {
@@ -138,7 +141,12 @@ public class PlayerMove : MonoBehaviour
 
     private bool OverlapCheck(Collider2D objectArray)
     {
-        if (objectArray == null) return false;
+        if (objectArray == null)
+        {
+            m_rotation = Vector3.zero;
+            return false;
+        } 
+        m_rotation = objectArray.GetComponent<Transform>().rotation.eulerAngles;
         return true;
     }
 
