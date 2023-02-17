@@ -14,6 +14,7 @@ public class PlayerMove : MonoBehaviour
     TMP_Text xspeed;
     [SerializeField] Transform overlapPoint;
     [SerializeField] LayerMask groundLayer;
+    [SerializeField] SpriteRenderer sprite;
     Rigidbody2D rb;
 
     //Variables
@@ -57,6 +58,13 @@ public class PlayerMove : MonoBehaviour
         xspeed.SetText(Convert.ToString(Math.Abs(rb.velocity.x)));
 
         GroundCheck();
+
+        if(rb.velocity.x < 0)
+        {
+            sprite.flipX = true;
+            return;
+        }
+        sprite.flipX = false;
     }
 
     private void FixedUpdate()
