@@ -1,0 +1,14 @@
+UserSettings/
+NuGet/
+Logs/
+obj/
+Temp/
+Library/
+.vscode/
+Assembly-CSharp-Editor.csproj
+Assembly-CSharp.csproj
+frostyCoots.sln
+omnisharp.json
+!Assets/
+!Packages/
+!ProjectSettings/
