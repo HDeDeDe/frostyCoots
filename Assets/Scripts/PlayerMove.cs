@@ -23,6 +23,8 @@ public class PlayerMove : MonoBehaviour
     public float m_jumpMultiplier;
     [Range(0f, 5f)][Tooltip("Affects how long it takes to break.")]
     public float m_breakAggressiveness;
+    [Range(0.000001f, 0.1f)][Tooltip("Affects air momentum.")]
+    public float m_airMomentum = 0.0625f;
     const float m_velocityLimit = 2500f;
     readonly Vector2 m_overlapBox = new(0.45f, 0.125f);
     Vector2 m_moveVec;
@@ -79,13 +81,14 @@ public class PlayerMove : MonoBehaviour
         {
             m_topSpeed = 0f;
             m_storedBreak = 0f;
+            Vector2 potentialVector = m_moveVec * m_airMomentum;
+            rb.velocity += potentialVector;
             return;
         }
 
         if(!m_breaking)
         {
             Vector2 potentialVector = m_moveVec;
-            //potentialVector.y = -50f;
             if(m_storedBreak > 0f) 
             {
                 potentialVector.y = m_storedBreak;
