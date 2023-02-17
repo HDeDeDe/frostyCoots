@@ -254,7 +254,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
-  m_jumpMultiplier: 1.3
+  m_jumpMultiplier: 1.1
   m_breakAggressiveness: 1.15
   m_grounded: 0
 --- !u!1 &45722928
