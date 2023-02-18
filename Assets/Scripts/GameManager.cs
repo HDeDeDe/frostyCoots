@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject playerObject;
     PlayerMove player;
     Transform miniPlayer;
+    Transform minimap;
     public GetThatInput input;
 
     TMP_Text speed;
@@ -32,8 +33,9 @@ public class GameManager : MonoBehaviour
     {
         Transform temp = GameObject.FindGameObjectWithTag("PlayerSpawn").transform;
         player = Instantiate(playerObject, temp).GetComponent<PlayerMove>();
-        
+
         miniPlayer = GameObject.Find("MiniPlayer").transform;
+        minimap = GameObject.Find("MiniMap").transform;
         speed = GameObject.Find("Canvas/Speed").GetComponent<TMP_Text>();
         maxSpeed = GameObject.Find("Canvas/MaxSpeed").GetComponent<TMP_Text>();
         jumpHeight = GameObject.Find("Canvas/JumpHeight").GetComponent<TMP_Text>();
@@ -44,6 +46,7 @@ public class GameManager : MonoBehaviour
     {
         Physics2D.gravity = new(0f, m_gravity);
         miniPlayer.position = player.transform.position;
+        minimap.position = new(player.transform.position.x, minimap.position.y, -10f);
 
         UpdateHud();
     }
@@ -53,10 +56,10 @@ public class GameManager : MonoBehaviour
         Vector2 velocity = player.GetVelocity();
         Vector2 speedJump = player.GetSpeedInfo();
 
-        speed.SetText(Convert.ToString(velocity.magnitude));
-        maxSpeed.SetText(Convert.ToString(speedJump.x));
-        jumpHeight.SetText(Convert.ToString(speedJump.y));
-        xspeed.SetText(Convert.ToString(Math.Abs(velocity.x)));
+        speed.SetText(Convert.ToString(PVTools.Crimp(velocity.magnitude)));
+        maxSpeed.SetText(Convert.ToString(PVTools.Crimp(speedJump.x)));
+        jumpHeight.SetText(Convert.ToString(PVTools.Crimp(speedJump.y)));
+        xspeed.SetText(Convert.ToString(Math.Abs(PVTools.Crimp(velocity.x))));
     }
 
     public void Panic()
