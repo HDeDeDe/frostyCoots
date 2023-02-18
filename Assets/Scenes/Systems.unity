@@ -205,6 +205,7 @@ MonoBehaviour:
   m_jumpMultiplier: 1.1
   m_breakAggressiveness: 1.15
   m_airMomentum: 0.0625
+  m_pushMomentum: 5
 --- !u!4 &390779165
 Transform:
   m_ObjectHideFlags: 0
@@ -308,7 +309,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 10.47
+  orthographic size: 10
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
