@@ -46,14 +46,15 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         Physics2D.gravity = new(0f, m_gravity);
-        miniPlayer.position = player.transform.position;
-        minimap.position = new(player.transform.position.x, minimap.position.y, -10f);
 
         UpdateHud();
     }
 
     void UpdateHud()
     {
+        miniPlayer.position = new(player.transform.position.x, player.transform.position.y, -1f);
+        minimap.position = new(player.transform.position.x, minimap.position.y, -10f);
+
         Vector2 velocity = player.GetVelocity();
         Vector2 speedJump = player.GetSpeedInfo();
 
