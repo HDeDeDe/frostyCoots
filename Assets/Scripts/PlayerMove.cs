@@ -131,22 +131,9 @@ public class PlayerMove : MonoBehaviour
         transform.position = Vector2.zero;
     }
 
-    public Vector2 GetVelocity()
-    {
-        return rb.velocity;
-    }
+    public Vector2 GetVelocity() { return rb.velocity; }
     //Returns m_topSpeed as x and m_storedBreak as y
-    public Vector2 GetSpeedInfo()
-    {
-        Vector2 i = new(m_topSpeed, m_storedBreak);
-        return i;
-    }
-    public Vector3 GetFloorRotation()
-    {
-        return m_floorRotation;
-    }
-    public PlayerState GetState()
-    {
-        return state;
-    }
+    public Vector2 GetSpeedInfo() { return new(m_topSpeed, m_storedBreak); }
+    public Vector3 GetFloorRotation() { return m_floorRotation; }
+    public PlayerState GetState() { return state; }
 }
