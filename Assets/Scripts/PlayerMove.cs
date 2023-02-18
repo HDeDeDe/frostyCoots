@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using TMPro;
 
 public class PlayerMove : MonoBehaviour
 {
@@ -9,17 +8,18 @@ public class PlayerMove : MonoBehaviour
     [Header("References")]
     [SerializeField] Transform overlapPoint;
     [SerializeField] LayerMask groundLayer;
-    [SerializeField] SpriteRenderer sprite;
     Rigidbody2D rb;
-    PlayerAnim pAnim;
 
     //Variables
+    [NonSerialized] public PlayerState state;
     Vector2 m_moveVec;
     bool m_breaking;
     float m_storedBreak = 0f;
     float m_topSpeed = 0f;
     bool m_grounded;
-    Vector3 m_rotation;
+    bool m_launched;
+
+    Vector3 m_floorRotation;
     
     // Start is called before the first frame update
     void Start()
@@ -27,28 +27,15 @@ public class PlayerMove : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         rb.freezeRotation = true;
 
-        pAnim = GetComponent<PlayerAnim>();
-
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     // Update is called once per frame
     private void Update()
     {
-        m_moveVec = gm.input.GetMovementVector();
-        //rb.AddForce(m_moveVec * Time.deltaTime, ForceMode2D.Force);
-        m_breaking = gm.input.GetHalt();
-        
+        GetPlayerInput();
         GroundCheck();
-
-        sprite.transform.localEulerAngles = m_rotation;
-
-        if(rb.velocity.x < 0)
-        {
-            sprite.flipX = true;
-            return;
-        }
-        sprite.flipX = false;
+        state = StateHandler();
     }
 
     private void FixedUpdate()
@@ -57,11 +44,19 @@ public class PlayerMove : MonoBehaviour
         MovePlayer();
     }
 
+    private void GetPlayerInput()
+    {
+        m_moveVec = gm.input.GetMovementVector();;
+        m_breaking = gm.input.GetHalt();
+    }
     private void MovePlayer()
     {
         if(!m_grounded)
         {
-            pAnim.Idle();
+            if(rb.velocity.y < 0)
+            {
+                m_launched = false;
+            }
             m_topSpeed = 0f;
             m_storedBreak = 0f;
             Vector2 potentialVector = m_moveVec * gm.AirMomentum();
@@ -71,10 +66,11 @@ public class PlayerMove : MonoBehaviour
 
         if(!m_breaking)
         {
-            pAnim.EndBreak();
+            m_launched = false;
             Vector2 potentialVector = m_moveVec;
             if(m_storedBreak > 0f) 
             {
+                m_launched = true;
                 potentialVector.y = m_storedBreak;
                 m_storedBreak = 0f;
             }
@@ -85,7 +81,6 @@ public class PlayerMove : MonoBehaviour
 
         if(Math.Abs(rb.velocity.x) > 0)
         {
-            pAnim.Break();
             Vector2 potentialVector;
             float percent = m_topSpeed / (gm.BreakAggro() * 50);
             if(Math.Abs(rb.velocity.x) > percent)
@@ -125,11 +120,17 @@ public class PlayerMove : MonoBehaviour
     {
         if (objectArray == null)
         {
-            m_rotation = Vector3.zero;
             return false;
         } 
-        m_rotation = objectArray.GetComponent<Transform>().rotation.eulerAngles;
+        m_floorRotation = objectArray.GetComponent<Transform>().rotation.eulerAngles;
         return true;
+    }
+    private PlayerState StateHandler()
+    {
+        if(m_launched) return PlayerState.LAUNCHING;
+        if(m_breaking) return PlayerState.BREAKING;
+        if(m_grounded) return PlayerState.MOVING;
+        return PlayerState.AIRBORNE;
     }
 
     public void Panic()
@@ -142,9 +143,18 @@ public class PlayerMove : MonoBehaviour
     {
         return rb.velocity;
     }
+    //Returns m_topSpeed as x and m_storedBreak as y
     public Vector2 GetSpeedInfo()
     {
         Vector2 i = new(m_topSpeed, m_storedBreak);
         return i;
+    }
+    public Vector3 GetFloorRotation()
+    {
+        return m_floorRotation;
+    }
+    public PlayerState GetState()
+    {
+        return state;
     }
 }

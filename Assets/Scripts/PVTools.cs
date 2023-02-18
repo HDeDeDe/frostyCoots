@@ -1,12 +1,12 @@
 using System;
 using UnityEngine;
 
-public enum AnimState : byte
+public enum PlayerState : byte 
 {
-    IDLE,
+    MOVING,
+    AIRBORNE,
     BREAKING,
-    BREAKSTART,
-    BREAKEND
+    LAUNCHING
 }
 
 public static class PVTools
