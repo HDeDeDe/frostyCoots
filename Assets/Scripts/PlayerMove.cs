@@ -138,7 +138,11 @@ public class PlayerMove : MonoBehaviour
         rb.AddForce(new(gm.PushMomentum() * temp, 0f), ForceMode2D.Impulse);
     }
 
-    public Vector2 GetVelocity() { return rb.velocity; }
+    public Vector2 GetVelocity() 
+    {
+        if(rb == null) return Vector2.zero;
+        return rb.velocity; 
+    }
     //Returns m_topSpeed as x and m_storedBreak as y
     public Vector2 GetSpeedInfo() { return new(m_topSpeed, m_storedBreak); }
     public Vector3 GetFloorRotation() { return m_floorRotation; }

@@ -63,28 +63,9 @@ public class GameManager : MonoBehaviour
         xspeed.SetText(Convert.ToString(Math.Abs(PVTools.Crimp(velocity.x))));
     }
 
-    public void Panic()
-    {
-        player.Panic();
-    }
-
-    public float JumpMultiplier()
-    {
-        return m_jumpMultiplier;
-    }
-
-    public float BreakAggro()
-    {
-        return m_breakAggressiveness;
-    }
-    
-    public float AirMomentum()
-    {
-        return m_airMomentum;
-    }
-
-    public float PushMomentum()
-    {
-        return m_pushMomentum;
-    }
+    public void Panic() { player.Panic(); }
+    public float JumpMultiplier() { return m_jumpMultiplier; }
+    public float BreakAggro() { return m_breakAggressiveness; }
+    public float AirMomentum() { return m_airMomentum; }
+    public float PushMomentum() { return m_pushMomentum; }
 }
