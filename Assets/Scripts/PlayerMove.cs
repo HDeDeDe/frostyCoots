@@ -68,7 +68,7 @@ public class PlayerMove : MonoBehaviour
             }
             m_topSpeed = 0f;
             m_storedBreak = 0f;
-            Vector2 potentialVector = m_moveVec * gm.AirMomentum();
+            Vector2 potentialVector = gm.AirMomentum() * gm.Speed() * m_moveVec;
             rb.velocity += potentialVector;
             return;
         }
@@ -76,7 +76,7 @@ public class PlayerMove : MonoBehaviour
         if(!m_breaking)
         {
             m_launched = false;
-            Vector2 potentialVector = m_moveVec;
+            Vector2 potentialVector = m_moveVec * gm.Speed();
             if(m_storedBreak > 0f) 
             {
                 m_launched = true;
