@@ -7,7 +7,6 @@ public class PlayerMove : MonoBehaviour
     GameManager gm;
 
     [Header("References")]
-    [SerializeField] GetThatInput inputManager;
     [SerializeField] Transform overlapPoint;
     [SerializeField] LayerMask groundLayer;
     [SerializeField] SpriteRenderer sprite;
@@ -36,9 +35,9 @@ public class PlayerMove : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        m_moveVec = inputManager.GetMovementVector();
+        m_moveVec = gm.input.GetMovementVector();
         //rb.AddForce(m_moveVec * Time.deltaTime, ForceMode2D.Force);
-        m_breaking = inputManager.GetHalt();
+        m_breaking = gm.input.GetHalt();
         
         GroundCheck();
 

@@ -5,8 +5,11 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
+    [Header("References")]
+    [SerializeField] GameObject playerObject;
     PlayerMove player;
     Transform miniPlayer;
+    public GetThatInput input;
 
     TMP_Text speed;
     TMP_Text maxSpeed;
@@ -23,13 +26,14 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene("Scenes/Level", LoadSceneMode.Additive);
         SceneManager.LoadScene("Scenes/UI", LoadSceneMode.Additive);
-        SceneManager.LoadScene("Scenes/Player", LoadSceneMode.Additive);
     }
 
     void Start()
     {
+        Transform temp = GameObject.FindGameObjectWithTag("PlayerSpawn").transform;
+        player = Instantiate(playerObject, temp).GetComponent<PlayerMove>();
+        
         miniPlayer = GameObject.Find("MiniPlayer").transform;
-        player = GameObject.Find("the square").GetComponent<PlayerMove>();
         speed = GameObject.Find("Canvas/Speed").GetComponent<TMP_Text>();
         maxSpeed = GameObject.Find("Canvas/MaxSpeed").GetComponent<TMP_Text>();
         jumpHeight = GameObject.Find("Canvas/JumpHeight").GetComponent<TMP_Text>();
