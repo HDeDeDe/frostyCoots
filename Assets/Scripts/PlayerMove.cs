@@ -40,7 +40,7 @@ public class PlayerMove : MonoBehaviour
 
     private void FixedUpdate()
     {
-        CapSpeed();
+        rb.velocity = PVTools.CapSpeed(rb.velocity);
         MovePlayer();
     }
 
@@ -104,11 +104,6 @@ public class PlayerMove : MonoBehaviour
 
         m_topSpeed = 0f;
         m_storedBreak = 0f;
-    }
-
-    private void CapSpeed()
-    {
-        rb.velocity = new(Math.Clamp(rb.velocity.x, PVTools.velocityLimit * -1, PVTools.velocityLimit), Math.Clamp(rb.velocity.y, PVTools.velocityLimit * -1, PVTools.velocityLimit));
     }
 
     private void GroundCheck()
