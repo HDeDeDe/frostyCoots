@@ -17,9 +17,21 @@ public class PlayerMove : MonoBehaviour
     float m_topSpeed = 0f;
     bool m_grounded;
     bool m_launched;
-
     Vector3 m_floorRotation;
 
+    // Return variables
+    private float AbsVelocityX() { return Math.Abs(rb.velocity.x); }
+    public Vector2 GetVelocity() 
+    {
+        if(rb == null) return Vector2.zero;
+        return rb.velocity; 
+    }
+    //Returns m_topSpeed as x and m_storedBreak as y
+    public Vector2 GetSpeedInfo() { return new(m_topSpeed, m_storedBreak); }
+    public Vector3 GetFloorRotation() { return m_floorRotation; }
+    public PlayerState GetState() { return state; }
+
+    //Code
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -72,15 +84,15 @@ public class PlayerMove : MonoBehaviour
                 m_storedBreak = 0f;
             }
             rb.velocity += potentialVector;
-            m_topSpeed = Math.Abs(rb.velocity.x);
+            m_topSpeed = AbsVelocityX();
             return;
         }
 
-        if(Math.Abs(rb.velocity.x) > 0)
+        if(AbsVelocityX() > 0)
         {
             Vector2 potentialVector;
             float percent = m_topSpeed / (gm.BreakAggro() * 50);
-            if(Math.Abs(rb.velocity.x) > percent)
+            if(AbsVelocityX() > percent)
             {
                 potentialVector.x = percent;
                 potentialVector.y = 0f;
@@ -121,7 +133,7 @@ public class PlayerMove : MonoBehaviour
     {
         if(m_launched) return PlayerState.LAUNCHING;
         if(m_breaking) return PlayerState.BREAKING;
-        if(m_grounded && PVTools.Crimp(Math.Abs(rb.velocity.x)) > 0f) return PlayerState.MOVING;
+        if(m_grounded && PVTools.Crimp(AbsVelocityX()) > 0f) return PlayerState.MOVING;
         if(m_grounded) return PlayerState.IDLE;
         return PlayerState.AIRBORNE;
     }
@@ -134,17 +146,9 @@ public class PlayerMove : MonoBehaviour
 
     public void Push()
     {
-        float temp = rb.velocity.x / Math.Abs(rb.velocity.x);
+        float temp = rb.velocity.x / AbsVelocityX();
         rb.AddForce(new(gm.PushMomentum() * temp, 0f), ForceMode2D.Impulse);
     }
 
-    public Vector2 GetVelocity() 
-    {
-        if(rb == null) return Vector2.zero;
-        return rb.velocity; 
-    }
-    //Returns m_topSpeed as x and m_storedBreak as y
-    public Vector2 GetSpeedInfo() { return new(m_topSpeed, m_storedBreak); }
-    public Vector3 GetFloorRotation() { return m_floorRotation; }
-    public PlayerState GetState() { return state; }
+
 }

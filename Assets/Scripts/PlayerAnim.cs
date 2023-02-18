@@ -61,11 +61,11 @@ public class PlayerAnim : MonoBehaviour
 
     private void TransformSprite()
     {
-        if(player.GetVelocity().x < -0.01f)
+        if(player.GetVelocity().x < PVTools.crimpLimitNegative)
         {
             sprite.flipX = true;
         }
-        if(player.GetVelocity().x > 0.01f)
+        if(player.GetVelocity().x > PVTools.crimpLimit)
         {
             sprite.flipX = false;
         }
