@@ -128,7 +128,7 @@ public class PlayerMove : MonoBehaviour
     public void Panic()
     {
         rb.velocity = Vector2.zero;
-        transform.position = Vector2.zero;
+        transform.localPosition = Vector2.zero;
     }
 
     public Vector2 GetVelocity() { return rb.velocity; }
