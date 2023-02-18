@@ -4,7 +4,6 @@ using UnityEngine;
 public class PlayerMove : MonoBehaviour
 {
     GameManager gm;
-
     [Header("References")]
     [SerializeField] Transform overlapPoint;
     [SerializeField] LayerMask groundLayer;
@@ -20,8 +19,7 @@ public class PlayerMove : MonoBehaviour
     bool m_launched;
 
     Vector3 m_floorRotation;
-    
-    // Start is called before the first frame update
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -30,7 +28,6 @@ public class PlayerMove : MonoBehaviour
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
-    // Update is called once per frame
     private void Update()
     {
         GetPlayerInput();
