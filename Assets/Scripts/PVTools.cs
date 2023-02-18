@@ -6,7 +6,9 @@ public enum PlayerState : byte
     MOVING,
     AIRBORNE,
     BREAKING,
-    LAUNCHING
+    LAUNCHING,
+    IDLE,
+    
 }
 
 public static class PVTools

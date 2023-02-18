@@ -8,9 +8,11 @@ public class PlayerAnim : MonoBehaviour
     PlayerMove player;
 
     private static readonly int BreakStart = Animator.StringToHash("BreakStart");
-    //private static readonly int Breaking = Animator.StringToHash("Breaking");
     private static readonly int BreakEnd = Animator.StringToHash("BreakEnd");
-    private static readonly int Idling = Animator.StringToHash("Idle");
+    private static readonly int Idle = Animator.StringToHash("Idle");
+    private static readonly int Falling = Animator.StringToHash("Falling");
+    private static readonly int Jumping = Animator.StringToHash("Jumping");
+    private static readonly int PushOff = Animator.StringToHash("PushOff");
 
     PlayerState m_state;
 
@@ -29,17 +31,29 @@ public class PlayerAnim : MonoBehaviour
     private void SetAnim()
     {
         if(player.state == m_state) return;
+        if(m_state == PlayerState.BREAKING && player.state == PlayerState.IDLE)
+        {
+            m_state = player.state;
+            animator.CrossFade(BreakEnd, 0, 0);
+            return;
+        }
         m_state = player.state;
         switch(m_state)
         {
             case PlayerState.LAUNCHING:
-                animator.CrossFade(BreakEnd, 0, 0);
+                animator.CrossFade(Jumping, 0, 0);
                 break;
             case PlayerState.BREAKING:
                 animator.CrossFade(BreakStart, 0, 0);
                 break;
+            case PlayerState.AIRBORNE:
+                animator.CrossFade(Falling, 0, 0);
+                break;
+            case PlayerState.MOVING:
+                animator.CrossFade(PushOff, 0, 0);
+                break;
             default:
-                animator.CrossFade(Idling, 0, 0);
+                animator.CrossFade(Idle, 0, 0);
                 break;
         }
         

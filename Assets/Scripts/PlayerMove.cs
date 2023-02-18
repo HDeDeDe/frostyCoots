@@ -121,7 +121,8 @@ public class PlayerMove : MonoBehaviour
     {
         if(m_launched) return PlayerState.LAUNCHING;
         if(m_breaking) return PlayerState.BREAKING;
-        if(m_grounded) return PlayerState.MOVING;
+        if(m_grounded && PVTools.Crimp(Math.Abs(rb.velocity.x)) > 0f) return PlayerState.MOVING;
+        if(m_grounded) return PlayerState.IDLE;
         return PlayerState.AIRBORNE;
     }
 
@@ -129,6 +130,12 @@ public class PlayerMove : MonoBehaviour
     {
         rb.velocity = Vector2.zero;
         transform.localPosition = Vector2.zero;
+    }
+
+    public void Push()
+    {
+        float temp = rb.velocity.x / Math.Abs(rb.velocity.x);
+        rb.AddForce(new(gm.PushMomentum() * temp, 0f), ForceMode2D.Impulse);
     }
 
     public Vector2 GetVelocity() { return rb.velocity; }

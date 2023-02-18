@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     [Range(0f, 5f)][Tooltip("Affects how high the player jumps.")][SerializeField]  float m_jumpMultiplier = 1.1f;
     [Range(0f, 5f)][Tooltip("Affects how long it takes to break.")][SerializeField] float m_breakAggressiveness = 1.15f;
     [Range(0.000001f, 0.1f)][Tooltip("Affects air momentum.")][SerializeField] float m_airMomentum = 0.0625f;
+    [Range(0f, 15f)][Tooltip("Affects the push when starting to move.")][SerializeField] float m_pushMomentum = 5f;
 
     void Awake()
     {
@@ -80,5 +81,10 @@ public class GameManager : MonoBehaviour
     public float AirMomentum()
     {
         return m_airMomentum;
+    }
+
+    public float PushMomentum()
+    {
+        return m_pushMomentum;
     }
 }
