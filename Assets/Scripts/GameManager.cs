@@ -36,8 +36,8 @@ public class GameManager : MonoBehaviour
         Transform temp = GameObject.FindGameObjectWithTag("PlayerSpawn").transform;
         player = Instantiate(playerObject, temp).GetComponent<PlayerMove>();
 
-        miniPlayer = GameObject.Find("MiniPlayer").transform;
-        minimap = GameObject.Find("MiniMap").transform;
+        miniPlayer = GameObject.Find("MiniMap/MiniPlayer").transform;
+        minimap = GameObject.Find("MiniMap/MiniMapCamera").transform;
         speed = GameObject.Find("Canvas/Speed").GetComponent<TMP_Text>();
         maxSpeed = GameObject.Find("Canvas/MaxSpeed").GetComponent<TMP_Text>();
         jumpHeight = GameObject.Find("Canvas/JumpHeight").GetComponent<TMP_Text>();
