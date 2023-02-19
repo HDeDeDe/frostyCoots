@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     TMP_Text xspeed;
 
     [Header("Game Variables")]
-    [Range(-100, 0)][SerializeField] float m_gravity;
+    [Range(-100, 0)][Tooltip("Affects Stardenburdenhardenbart.")][SerializeField] float m_gravity;
     [Range(0f, 5f)][Tooltip("Affects how high the player jumps.")][SerializeField] float m_jumpMultiplier = 1.1f;
     [Range(0f, 5f)][Tooltip("Affects how long it takes to break.")][SerializeField] float m_breakAggressiveness = 1.15f;
     [Range(0.000001f, 0.1f)][Tooltip("Affects air momentum.")][SerializeField] float m_airMomentum = 0.0625f;
