@@ -8,7 +8,7 @@ public enum PlayerState : byte
     BREAKING,
     LAUNCHING,
     IDLE,
-    
+    HOPPING
 }
 
 public static class PVTools

@@ -13,6 +13,7 @@ public class PlayerMove : MonoBehaviour
     [NonSerialized] public PlayerState state;
     Vector2 m_moveVec;
     bool m_breaking;
+    bool m_readyToJump;
     float m_storedBreak = 0f;
     float m_topSpeed = 0f;
     bool m_grounded;
@@ -20,7 +21,7 @@ public class PlayerMove : MonoBehaviour
     Vector3 m_floorRotation;
 
     // Return variables
-    private float AbsVelocityX() { return Math.Abs(rb.velocity.x); }
+    private float AbsVelocityX() { return PVTools.Crimp(Math.Abs(rb.velocity.x)); }
     public Vector2 GetVelocity() 
     {
         if(rb == null) return Vector2.zero;
@@ -57,6 +58,7 @@ public class PlayerMove : MonoBehaviour
     {
         m_moveVec = gm.input.GetMovementVector();;
         m_breaking = gm.input.GetHalt();
+        m_readyToJump = gm.input.GetQuickJump();
     }
     private void MovePlayer()
     {
@@ -77,6 +79,7 @@ public class PlayerMove : MonoBehaviour
         {
             m_launched = false;
             Vector2 potentialVector = m_moveVec * gm.Speed();
+            if(AbsVelocityX() > gm.SoftSpeedCap()) potentialVector = Vector2.zero;
             if(m_storedBreak > 0f) 
             {
                 m_launched = true;
@@ -88,31 +91,37 @@ public class PlayerMove : MonoBehaviour
             return;
         }
 
-        if(AbsVelocityX() > 0)
+        if(AbsVelocityX() <= PVTools.crimpLimit)
         {
-            Vector2 potentialVector;
-            float percent = m_topSpeed / (gm.BreakAggro() * 50);
-            if(AbsVelocityX() > percent)
-            {
-                potentialVector.x = percent;
-                potentialVector.y = 0f;
-                if(rb.velocity.x > 0)
-                {
-                    rb.velocity -= potentialVector;
-                }
-                else
-                {
-                    rb.velocity += potentialVector;
-                }
-                m_storedBreak += percent * gm.JumpMultiplier();
-                return;
-            }
-
-            rb.velocity = new(0f, rb.velocity.y);
+            m_topSpeed = 0f;
+            m_storedBreak = 0f;
+            return;
         }
 
-        m_topSpeed = 0f;
-        m_storedBreak = 0f;
+        if(m_readyToJump)
+        {
+            rb.AddForce(new(0f, gm.QuickJump()), ForceMode2D.Impulse);
+            return;
+        }
+
+        float percent = m_topSpeed / (gm.BreakAggro() * 50);
+        if(AbsVelocityX() > percent)
+        {
+            Vector2 potentialVector;
+            potentialVector.x = percent;
+            potentialVector.y = 0f;
+            if(rb.velocity.x > 0)
+            {
+                rb.velocity -= potentialVector;
+            }
+            else
+            {
+                rb.velocity += potentialVector;
+            }
+            m_storedBreak += percent * gm.JumpMultiplier();
+            return;
+        }
+        rb.velocity = new(0f, rb.velocity.y);
     }
 
     private void GroundCheck()
@@ -133,7 +142,8 @@ public class PlayerMove : MonoBehaviour
     {
         if(m_launched) return PlayerState.LAUNCHING;
         if(m_breaking) return PlayerState.BREAKING;
-        if(m_grounded && PVTools.Crimp(AbsVelocityX()) > 0f) return PlayerState.MOVING;
+        if(m_grounded && m_readyToJump) return PlayerState.HOPPING;
+        if(m_grounded && AbsVelocityX() > 0f) return PlayerState.MOVING;
         if(m_grounded) return PlayerState.IDLE;
         return PlayerState.AIRBORNE;
     }
@@ -146,6 +156,7 @@ public class PlayerMove : MonoBehaviour
 
     public void Push()
     {
+        if(AbsVelocityX() == 0f) return;
         float temp = rb.velocity.x / AbsVelocityX();
         rb.AddForce(new(gm.PushMomentum() * temp, 0f), ForceMode2D.Impulse);
     }

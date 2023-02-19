@@ -155,6 +155,7 @@ MonoBehaviour:
   left: 97
   right: 100
   halt: 32
+  quickReady: 304
 --- !u!4 &45722930
 Transform:
   m_ObjectHideFlags: 0
@@ -207,6 +208,8 @@ MonoBehaviour:
   m_airMomentum: 0.0625
   m_pushMomentum: 5
   m_speed: 1
+  m_quickHeight: 2
+  m_softSpeedCap: 150
 --- !u!4 &390779165
 Transform:
   m_ObjectHideFlags: 0

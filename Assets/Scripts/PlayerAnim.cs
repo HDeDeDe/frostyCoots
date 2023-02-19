@@ -13,6 +13,7 @@ public class PlayerAnim : MonoBehaviour
     private static readonly int Falling = Animator.StringToHash("Falling");
     private static readonly int Jumping = Animator.StringToHash("Jumping");
     private static readonly int PushOff = Animator.StringToHash("PushOff");
+    private static readonly int ShortHop = Animator.StringToHash("ShortHop");
 
     PlayerState m_state;
 
@@ -31,13 +32,23 @@ public class PlayerAnim : MonoBehaviour
     private void SetAnim()
     {
         if(player.state == m_state) return;
-        if(m_state == PlayerState.BREAKING && player.state == PlayerState.IDLE)
+
+        PlayerState oldState = m_state;
+        m_state = player.state;
+
+        if(oldState == PlayerState.BREAKING && m_state == PlayerState.IDLE)
         {
             m_state = player.state;
             animator.CrossFade(BreakEnd, 0, 0);
             return;
         }
-        m_state = player.state;
+        if(oldState == PlayerState.HOPPING && m_state == PlayerState.MOVING)
+        {
+            m_state = player.state;
+            animator.CrossFade(Idle, 0, 0);
+            return;
+        }
+
         switch(m_state)
         {
             case PlayerState.LAUNCHING:
@@ -51,6 +62,9 @@ public class PlayerAnim : MonoBehaviour
                 break;
             case PlayerState.MOVING:
                 animator.CrossFade(PushOff, 0, 0);
+                break;
+            case PlayerState.HOPPING:
+                animator.CrossFade(ShortHop, 0, 0);
                 break;
             default:
                 animator.CrossFade(Idle, 0, 0);
