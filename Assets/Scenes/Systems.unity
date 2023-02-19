@@ -208,7 +208,7 @@ MonoBehaviour:
   m_airMomentum: 0.0625
   m_pushMomentum: 5
   m_speed: 1
-  m_quickHeight: 2
+  m_quickHeight: 5
   m_softSpeedCap: 150
 --- !u!4 &390779165
 Transform:

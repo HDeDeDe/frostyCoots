@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
     [Range(0.000001f, 0.1f)][Tooltip("Affects air momentum.")][SerializeField] float m_airMomentum = 0.0625f;
     [Range(0f, 15f)][Tooltip("Affects the push when starting to move.")][SerializeField] float m_pushMomentum = 5f;
     [Range(0.25f, 2f)][Tooltip("Affects speed gain.")][SerializeField] float m_speed = 1f;
-    [Range(1f, 5f)][Tooltip("Affects quick jump height.")][SerializeField] float m_quickHeight = 2f;
+    [Range(1, 50)][Tooltip("Affects quick jump height.")][SerializeField] int m_quickHeight = 5;
     [Range(150f, 500f)][Tooltip("Affects soft speed cap.")][SerializeField] float m_softSpeedCap = 250f;
 
     void Awake()
