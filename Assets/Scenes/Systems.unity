@@ -207,7 +207,7 @@ MonoBehaviour:
   m_breakAggressiveness: 1.15
   m_airMomentum: 0.0625
   m_pushMomentum: 5
-  m_speed: 1.199
+  m_speed: 1.2
   m_quickHeight: 6
   m_softSpeedCap: 75
 --- !u!4 &390779165
