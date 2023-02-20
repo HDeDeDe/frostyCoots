@@ -81,6 +81,7 @@ public class PlayerMove : MonoBehaviour
         {
             m_launched = false;
             Vector2 potentialVector = Halve(m_moveVec * gm.Speed());
+            if(m_readyToJump) potentialVector = Halve(potentialVector);
             if(AbsVelocityX() > gm.SoftSpeedCap()) potentialVector = Vector2.zero;
             if(m_storedBreak > 0f) 
             {

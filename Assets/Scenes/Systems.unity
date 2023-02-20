@@ -203,7 +203,7 @@ MonoBehaviour:
   playerObject: {fileID: 1195298859579637405, guid: 17924f490b9524740abc58d107c0dd86, type: 3}
   input: {fileID: 45722929}
   m_gravity: -30
-  m_jumpMultiplier: 1.1
+  m_jumpMultiplier: 0.9
   m_breakAggressiveness: 1.15
   m_airMomentum: 0.0625
   m_pushMomentum: 5
