@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 
+//test
 public class PlayerMove : MonoBehaviour
 {
     GameManager gm;
