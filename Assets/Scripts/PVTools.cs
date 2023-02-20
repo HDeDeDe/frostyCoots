@@ -17,7 +17,7 @@ public static class PVTools
     public const float velocityLimitNegative = -2500f;
     public const float crimpLimit = 0.000001f;
     public const float crimpLimitNegative = -0.000001f;
-    public readonly static Vector2 overlapBox = new(0.45f, 0.125f);
+    public readonly static Vector2 overlapBox = new(0.225f, 0.0625f);
 
     public static Vector2 CapSpeed(Vector2 input)
     {

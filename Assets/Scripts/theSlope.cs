@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-// 22 degrees begins to lose speed
-// 37 degrees is no longer grounded
+// 22 degrees loses speed
+// 39 degrees is no longer grounded
 
 
 public class theSlope : MonoBehaviour

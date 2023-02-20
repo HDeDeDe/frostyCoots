@@ -21,6 +21,8 @@ public class PlayerMove : MonoBehaviour
     Vector3 m_floorRotation;
 
     // Return variables
+    private float Halve(float input) { return input / 2f;}
+    private Vector2 Halve(Vector2 input) { return input / 2f;}
     private float AbsVelocityX() { return PVTools.Crimp(Math.Abs(rb.velocity.x)); }
     public Vector2 GetVelocity() 
     {
@@ -70,7 +72,7 @@ public class PlayerMove : MonoBehaviour
             }
             m_topSpeed = 0f;
             m_storedBreak = 0f;
-            Vector2 potentialVector = gm.AirMomentum() * gm.Speed() * m_moveVec;
+            Vector2 potentialVector = Halve(gm.AirMomentum() * gm.Speed() * m_moveVec);
             rb.velocity += potentialVector;
             return;
         }
@@ -78,7 +80,7 @@ public class PlayerMove : MonoBehaviour
         if(!m_breaking)
         {
             m_launched = false;
-            Vector2 potentialVector = m_moveVec * gm.Speed();
+            Vector2 potentialVector = Halve(m_moveVec * gm.Speed());
             if(AbsVelocityX() > gm.SoftSpeedCap()) potentialVector = Vector2.zero;
             if(m_storedBreak > 0f) 
             {
