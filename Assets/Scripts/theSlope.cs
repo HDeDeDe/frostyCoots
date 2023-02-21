@@ -9,7 +9,7 @@ using UnityEngine;
 
 public class theSlope : MonoBehaviour
 {
-    [Range(0f, 90f)][SerializeField]float m_rotation = 0f;
+    [Range(-90f, 90f)][SerializeField]float m_rotation = 0f;
     void Update()
     {
         transform.eulerAngles = new(0f, 0f, m_rotation);

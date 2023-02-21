@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     TMP_Text maxSpeed;
     TMP_Text jumpHeight;
     TMP_Text xspeed;
+    TMP_Text rotation;
 
     [Header("Game Variables")]
     [Range(-100, 0)][Tooltip("Affects Stardenburdenhardenbart.")][SerializeField] float m_gravity;
@@ -44,6 +45,7 @@ public class GameManager : MonoBehaviour
         maxSpeed = GameObject.Find("Canvas/MaxSpeed").GetComponent<TMP_Text>();
         jumpHeight = GameObject.Find("Canvas/JumpHeight").GetComponent<TMP_Text>();
         xspeed = GameObject.Find("Canvas/XSpeed").GetComponent<TMP_Text>();
+        rotation = GameObject.Find("Canvas/Rotation").GetComponent<TMP_Text>();
     }
     
     void Update()
@@ -60,11 +62,13 @@ public class GameManager : MonoBehaviour
 
         Vector2 velocity = player.GetVelocity();
         Vector2 speedJump = player.GetSpeedInfo();
+        Vector3 p_rotation = player.GetFloorRotation();
 
         speed.SetText(Convert.ToString(PVTools.Crimp(velocity.magnitude)));
         maxSpeed.SetText(Convert.ToString(PVTools.Crimp(speedJump.x)));
         jumpHeight.SetText(Convert.ToString(PVTools.Crimp(speedJump.y)));
         xspeed.SetText(Convert.ToString(Math.Abs(PVTools.Crimp(velocity.x))));
+        rotation.SetText(Convert.ToString(PVTools.Crimp(p_rotation.z)));
     }
 
     public void Panic() { player.Panic(); }

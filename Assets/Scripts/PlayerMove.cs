@@ -77,6 +77,10 @@ public class PlayerMove : MonoBehaviour
             rb.velocity += potentialVector;
             return;
         }
+        
+        // ContactFilter2D tempContacts = new();
+        // tempContacts.SetLayerMask(groundLayer);
+        // m_floorRotation = GetGroundRotation(tempContacts);
 
         if(!m_breaking)
         {
@@ -132,7 +136,6 @@ public class PlayerMove : MonoBehaviour
     {
         m_grounded = OverlapCheck(Physics2D.OverlapBox(overlapPoint.position, PVTools.overlapBox, 0f, groundLayer));
     }
-
     private bool OverlapCheck(Collider2D objectArray)
     {
         if (objectArray == null)
@@ -142,6 +145,29 @@ public class PlayerMove : MonoBehaviour
         m_floorRotation = objectArray.GetComponent<Transform>().rotation.eulerAngles;
         return true;
     }
+    // private float GetGroundRotation(ContactFilter2D filter)//ContactPoint2D[] input)
+    // {
+    //     float angle = 0f;
+    //     ContactPoint2D[] contacts = new ContactPoint2D[10];
+        
+    //     int numContacts = rb.GetContacts(filter, contacts);
+    //     for(int i = 0; i < numContacts; i++)
+    //     {
+    //         if(contacts[i].collider == null) continue;
+    //         Debug.DrawLine(transform.position, contacts[i].point,  Color.magenta);
+    //         angle = (MathF.Atan2(transform.position.y - contacts[i].point.y, transform.position.x - contacts[i].point.x) * 180 / Mathf.PI) - 90f;
+    //         //if(temp_angle <= 38f)
+    //     }
+
+    //     return angle;
+    //     // if(input == null) return Vector3.zero;
+
+    //     // Debug.DrawRay(input[0].point, transform.position, Color.red);
+    //     // float temp = Vector2.Angle(input[0].point, transform.position);
+    //     // return new(0f, 0f, temp);
+
+    // }
+
     private PlayerState StateHandler()
     {
         if(m_launched) return PlayerState.LAUNCHING;
