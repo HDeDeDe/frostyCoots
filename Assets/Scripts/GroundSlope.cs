@@ -16,5 +16,6 @@ public class GroundSlope : MonoBehaviour
     void Update()
     {
         boxCollider.size = sprite.size;
+        boxCollider.offset = new(sprite.size.x / 2, -0.5f);
     }
 }
