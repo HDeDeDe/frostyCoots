@@ -35,6 +35,8 @@ public class GameManager : MonoBehaviour
 
     [Tooltip("Win.")][SerializeField] bool m_win = false;
 
+    public bool Ready {get; private set;} = false;
+
     void Awake()
     {
         SceneManager.LoadScene("Scenes/Level", LoadSceneMode.Additive);
@@ -59,6 +61,7 @@ public class GameManager : MonoBehaviour
     
     void Update()
     {
+        Ready = true;
         Physics2D.gravity = new(0f, m_gravity);
 
         UpdateHud();
