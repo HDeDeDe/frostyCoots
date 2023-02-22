@@ -22,9 +22,9 @@ public class PlayerMove : MonoBehaviour
     Vector3 m_floorRotation;
     [NonSerialized] public bool m_jumping;
 
-    // Return variables
-    private float Halve(float input) { return input / 2f;}
-    private Vector2 Halve(Vector2 input) { return input / 2f;}
+    bool m_overrideGroundedMovement;
+    float m_overrideTimer = 3f;
+
     private float AbsVelocityX() { return PVTools.Crimp(Math.Abs(rb.velocity.x)); }
     public Vector2 GetVelocity() 
     {
@@ -56,6 +56,7 @@ public class PlayerMove : MonoBehaviour
     {
         rb.velocity = PVTools.CapSpeed(rb.velocity);
         MovePlayer();
+        MoveFailsafe();
     }
 
     private void GetPlayerInput()
@@ -66,6 +67,11 @@ public class PlayerMove : MonoBehaviour
     }
     private void MovePlayer()
     {
+        if(m_overrideGroundedMovement)
+        {
+            rb.AddForce(m_moveVec, ForceMode2D.Impulse);
+            return;
+        }
         if(!m_grounded)
         {
             if(rb.velocity.y < 0)
@@ -74,11 +80,10 @@ public class PlayerMove : MonoBehaviour
             }
             m_topSpeed = 0f;
             m_storedBreak = 0f;
-            Vector2 potentialVector = Halve(gm.AirMomentum() * gm.Speed() * m_moveVec);
+            Vector2 potentialVector = PVTools.Halve(gm.AirMomentum() * gm.Speed() * m_moveVec);
             rb.velocity += potentialVector;
             return;
         }
-        
         // ContactFilter2D tempContacts = new();
         // tempContacts.SetLayerMask(groundLayer);
         // m_floorRotation = GetGroundRotation(tempContacts);
@@ -86,8 +91,8 @@ public class PlayerMove : MonoBehaviour
         if(!m_breaking)
         {
             m_launched = false;
-            Vector2 potentialVector = Halve(m_moveVec * gm.Speed());
-            if(m_readyToJump) potentialVector = Halve(potentialVector);
+            Vector2 potentialVector = PVTools.Halve(m_moveVec * gm.Speed());
+            if(m_readyToJump) potentialVector = PVTools.Halve(potentialVector);
             if(AbsVelocityX() > gm.SoftSpeedCap()) potentialVector = Vector2.zero;
             if(m_storedBreak > 0f) 
             {
@@ -133,6 +138,29 @@ public class PlayerMove : MonoBehaviour
             return;
         }
         rb.velocity = new(0f, rb.velocity.y);
+    }
+
+    private void MoveFailsafe()
+    {
+        
+        if(m_grounded)
+        {
+            m_overrideTimer = 3f;
+            m_overrideGroundedMovement = false;
+            return;
+        }
+        if(!m_overrideGroundedMovement && PVTools.Crimp(rb.velocity.magnitude) != 0f)
+        {
+            m_overrideTimer = 3f;
+            m_overrideGroundedMovement = false;
+            return;
+        }
+        if(m_overrideTimer > 0f)
+        {
+            m_overrideTimer -= Time.fixedDeltaTime;
+            return;
+        }
+        m_overrideGroundedMovement = true;
     }
 
     private void GroundCheck()
@@ -194,5 +222,8 @@ public class PlayerMove : MonoBehaviour
         rb.AddForce(new(gm.PushMomentum() * temp, 0f), ForceMode2D.Impulse);
     }
 
-
+    void OnDrawGizmos()
+    {
+        Gizmos.DrawWireCube(overlapPoint.position, PVTools.overlapBox * 2);
+    }
 }
