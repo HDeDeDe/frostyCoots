@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour
     [Range(50f, 500f)][Tooltip("Affects soft speed cap.")][SerializeField] float m_softSpeedCap = 250f;
     [Tooltip("Affects minimap")][SerializeField] bool m_miniMap = true;
     [Range(0f, 1f)][Tooltip("Affects SFX volume.")][SerializeField] float m_sfxVolume = 0.65f;
-
+    [Tooltip("Determines if all coots are required to win.")][SerializeField] bool m_cootsCondition = false;
     [Tooltip("Win.")][SerializeField] bool m_win = false;
 
     public bool Ready {get; private set;} = false;
@@ -73,6 +73,7 @@ public class GameManager : MonoBehaviour
 
     public void Win(bool discard)
     {
+        if(m_cootsCondition && !cm.AllCoots()) return;
         m_win = true;
     }
 

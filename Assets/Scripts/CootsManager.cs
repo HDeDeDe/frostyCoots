@@ -71,4 +71,9 @@ public class CootsManager : MonoBehaviour
     {
         return templateCoots;
     }
+    public bool AllCoots()
+    {
+        if(m_collectedCoots == m_cootsTotal) return true;
+        return false;
+    }
 }
