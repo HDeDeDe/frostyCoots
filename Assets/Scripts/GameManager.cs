@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
     [Range(1, 50)][Tooltip("Affects quick jump height.")][SerializeField] int m_quickHeight = 5;
     [Range(50f, 500f)][Tooltip("Affects soft speed cap.")][SerializeField] float m_softSpeedCap = 250f;
     [Tooltip("Affects minimap")][SerializeField] bool m_miniMap = true;
+    [Range(0f, 1f)][Tooltip("Affects SFX volume.")][SerializeField] float m_sfxVolume = 0.65f;
 
     void Awake()
     {
@@ -84,4 +85,5 @@ public class GameManager : MonoBehaviour
     public float Speed() { return m_speed; }
     public float QuickJump() { return m_quickHeight; }
     public float SoftSpeedCap() { return m_softSpeedCap; }
+    public float SFXVolume() { return m_sfxVolume; }
 }

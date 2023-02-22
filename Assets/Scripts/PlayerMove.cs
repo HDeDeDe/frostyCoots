@@ -20,6 +20,7 @@ public class PlayerMove : MonoBehaviour
     bool m_grounded;
     bool m_launched;
     Vector3 m_floorRotation;
+    [NonSerialized] public bool m_jumping;
 
     // Return variables
     private float Halve(float input) { return input / 2f;}
@@ -93,6 +94,7 @@ public class PlayerMove : MonoBehaviour
                 m_launched = true;
                 potentialVector.y = m_storedBreak;
                 m_storedBreak = 0f;
+                m_jumping = true;
             }
             rb.velocity += potentialVector;
             m_topSpeed = AbsVelocityX();
@@ -109,6 +111,7 @@ public class PlayerMove : MonoBehaviour
         if(m_readyToJump)
         {
             rb.AddForce(new(0f, gm.QuickJump()), ForceMode2D.Impulse);
+            m_jumping = true;
             return;
         }
 
