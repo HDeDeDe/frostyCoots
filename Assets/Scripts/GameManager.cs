@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     TMP_Text jumpHeight;
     TMP_Text xspeed;
     TMP_Text rotation;
+    TMP_Text winner;
     RawImage miniMap;
 
     [Header("Game Variables")]
@@ -31,6 +32,8 @@ public class GameManager : MonoBehaviour
     [Range(50f, 500f)][Tooltip("Affects soft speed cap.")][SerializeField] float m_softSpeedCap = 250f;
     [Tooltip("Affects minimap")][SerializeField] bool m_miniMap = true;
     [Range(0f, 1f)][Tooltip("Affects SFX volume.")][SerializeField] float m_sfxVolume = 0.65f;
+
+    [Tooltip("Win.")][SerializeField] bool m_win = false;
 
     void Awake()
     {
@@ -51,6 +54,7 @@ public class GameManager : MonoBehaviour
         xspeed = GameObject.Find("Canvas/XSpeed").GetComponent<TMP_Text>();
         rotation = GameObject.Find("Canvas/Rotation").GetComponent<TMP_Text>();
         miniMap = GameObject.Find("Canvas/MiniMap").GetComponent<RawImage>();
+        winner = GameObject.Find("Canvas/YOU'RE WINNER !").GetComponent<TMP_Text>();
     }
     
     void Update()
@@ -58,6 +62,11 @@ public class GameManager : MonoBehaviour
         Physics2D.gravity = new(0f, m_gravity);
 
         UpdateHud();
+    }
+
+    public void Win(bool discard)
+    {
+        m_win = true;
     }
 
     void UpdateHud()
@@ -75,6 +84,13 @@ public class GameManager : MonoBehaviour
         xspeed.SetText(Convert.ToString(Math.Abs(PVTools.Crimp(velocity.x))));
         rotation.SetText(Convert.ToString(PVTools.Crimp(p_rotation.z)));
         miniMap.uvRect = new(0f, 0f, Convert.ToInt32(m_miniMap), 1f);
+
+        if(m_win)
+        {
+            winner.SetText("YOU WIN!");
+            return;
+        }
+        winner.SetText("");
     }
 
     public void Panic() { player.Panic(); }
@@ -86,4 +102,5 @@ public class GameManager : MonoBehaviour
     public float QuickJump() { return m_quickHeight; }
     public float SoftSpeedCap() { return m_softSpeedCap; }
     public float SFXVolume() { return m_sfxVolume; }
+    public bool Win() { return m_win; }
 }

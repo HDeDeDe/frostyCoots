@@ -61,6 +61,13 @@ public class PlayerMove : MonoBehaviour
 
     private void GetPlayerInput()
     {
+        if(gm.Win()) 
+        {
+            m_moveVec = Vector2.zero;
+            m_breaking = false;
+            m_readyToJump = false;
+            return;
+        }
         m_moveVec = gm.input.GetMovementVector();;
         m_breaking = gm.input.GetHalt();
         m_readyToJump = gm.input.GetQuickJump();
@@ -225,5 +232,16 @@ public class PlayerMove : MonoBehaviour
     void OnDrawGizmos()
     {
         Gizmos.DrawWireCube(overlapPoint.position, PVTools.overlapBox * 2);
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.gameObject.layer != 9) return;
+        if(other.gameObject.CompareTag("Goal"))
+        {
+           gm.Win(true); 
+           return;
+        }
+        other.GetComponent<Coots>().Collected();
     }
 }
