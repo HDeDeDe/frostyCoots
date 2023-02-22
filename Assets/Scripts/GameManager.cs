@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using TMPro;
 
 public class GameManager : MonoBehaviour
@@ -9,7 +10,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject playerObject;
     PlayerMove player;
     Transform miniPlayer;
-    Transform minimap;
+    Transform miniMapCamera;
     public GetThatInput input;
 
     TMP_Text speed;
@@ -17,6 +18,7 @@ public class GameManager : MonoBehaviour
     TMP_Text jumpHeight;
     TMP_Text xspeed;
     TMP_Text rotation;
+    RawImage miniMap;
 
     [Header("Game Variables")]
     [Range(-100, 0)][Tooltip("Affects Stardenburdenhardenbart.")][SerializeField] float m_gravity;
@@ -27,6 +29,7 @@ public class GameManager : MonoBehaviour
     [Range(0.25f, 2f)][Tooltip("Affects speed gain.")][SerializeField] float m_speed = 1f;
     [Range(1, 50)][Tooltip("Affects quick jump height.")][SerializeField] int m_quickHeight = 5;
     [Range(50f, 500f)][Tooltip("Affects soft speed cap.")][SerializeField] float m_softSpeedCap = 250f;
+    [Tooltip("Affects minimap")][SerializeField] bool m_miniMap = true;
 
     void Awake()
     {
@@ -40,12 +43,13 @@ public class GameManager : MonoBehaviour
         player = Instantiate(playerObject, temp).GetComponent<PlayerMove>();
 
         miniPlayer = GameObject.Find("MiniMap/MiniPlayer").transform;
-        minimap = GameObject.Find("MiniMap/MiniMapCamera").transform;
+        miniMapCamera = GameObject.Find("MiniMap/MiniMapCamera").transform;
         speed = GameObject.Find("Canvas/Speed").GetComponent<TMP_Text>();
         maxSpeed = GameObject.Find("Canvas/MaxSpeed").GetComponent<TMP_Text>();
         jumpHeight = GameObject.Find("Canvas/JumpHeight").GetComponent<TMP_Text>();
         xspeed = GameObject.Find("Canvas/XSpeed").GetComponent<TMP_Text>();
         rotation = GameObject.Find("Canvas/Rotation").GetComponent<TMP_Text>();
+        miniMap = GameObject.Find("Canvas/MiniMap").GetComponent<RawImage>();
     }
     
     void Update()
@@ -58,7 +62,7 @@ public class GameManager : MonoBehaviour
     void UpdateHud()
     {
         miniPlayer.position = new(player.transform.position.x, player.transform.position.y, -1f);
-        minimap.position = new(player.transform.position.x, minimap.position.y, -10f);
+        miniMapCamera.position = new(player.transform.position.x, miniMapCamera.position.y, -10f);
 
         Vector2 velocity = player.GetVelocity();
         Vector2 speedJump = player.GetSpeedInfo();
@@ -69,6 +73,7 @@ public class GameManager : MonoBehaviour
         jumpHeight.SetText(Convert.ToString(PVTools.Crimp(speedJump.y)));
         xspeed.SetText(Convert.ToString(Math.Abs(PVTools.Crimp(velocity.x))));
         rotation.SetText(Convert.ToString(PVTools.Crimp(p_rotation.z)));
+        miniMap.uvRect = new(0f, 0f, Convert.ToInt32(m_miniMap), 1f);
     }
 
     public void Panic() { player.Panic(); }

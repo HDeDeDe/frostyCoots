@@ -789,7 +789,7 @@ GameObject:
   - component: {fileID: 732658561}
   - component: {fileID: 732658560}
   m_Layer: 5
-  m_Name: RawImage
+  m_Name: coots2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
