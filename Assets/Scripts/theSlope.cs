@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-// above 21 degrees loses speed
+// above 21.9 degrees loses speed
 // above 38.8 degrees is no longer grounded
 
 
