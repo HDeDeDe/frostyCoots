@@ -242,6 +242,8 @@ public class PlayerMove : MonoBehaviour
            gm.Win(true); 
            return;
         }
-        other.GetComponent<Coots>().Collected();
+        Coots the = other.gameObject.GetComponent<Coots>();
+        Debug.Log("Template.");
+        the.Collected();
     }
 }

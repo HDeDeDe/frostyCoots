@@ -34,6 +34,7 @@ SpriteAtlas:
     packables:
     - {fileID: 102900000, guid: acf0b0b870da0ea48bd7317712da4cbc, type: 3}
     - {fileID: 102900000, guid: a24df2fa15197724dbcfe396ddcda79b, type: 3}
+    - {fileID: 102900000, guid: 43abfc7f5fbcefc4794c8481336358ce, type: 3}
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
@@ -75,6 +76,23 @@ SpriteAtlas:
   - {fileID: -226232647, guid: c072b0959e005264c9f7e8c2528bf64c, type: 3}
   - {fileID: -152685269, guid: c072b0959e005264c9f7e8c2528bf64c, type: 3}
   - {fileID: -1725017872, guid: c072b0959e005264c9f7e8c2528bf64c, type: 3}
+  - {fileID: -701139903, guid: a5a557567727a5d4ebb63f1ac78903cf, type: 3}
+  - {fileID: 364400514, guid: a5a557567727a5d4ebb63f1ac78903cf, type: 3}
+  - {fileID: 280413861, guid: a5a557567727a5d4ebb63f1ac78903cf, type: 3}
+  - {fileID: 1525051080, guid: a5a557567727a5d4ebb63f1ac78903cf, type: 3}
+  - {fileID: 93194034, guid: a5a557567727a5d4ebb63f1ac78903cf, type: 3}
+  - {fileID: 1754839904, guid: a5a557567727a5d4ebb63f1ac78903cf, type: 3}
+  - {fileID: 2115588643, guid: a5a557567727a5d4ebb63f1ac78903cf, type: 3}
+  - {fileID: 1174233918, guid: a5a557567727a5d4ebb63f1ac78903cf, type: 3}
+  - {fileID: 825383355, guid: a5a557567727a5d4ebb63f1ac78903cf, type: 3}
+  - {fileID: 213009410, guid: a5a557567727a5d4ebb63f1ac78903cf, type: 3}
+  - {fileID: -1363036047, guid: a5a557567727a5d4ebb63f1ac78903cf, type: 3}
+  - {fileID: 1436957478, guid: a5a557567727a5d4ebb63f1ac78903cf, type: 3}
+  - {fileID: 150050079, guid: a5a557567727a5d4ebb63f1ac78903cf, type: 3}
+  - {fileID: -281938423, guid: a5a557567727a5d4ebb63f1ac78903cf, type: 3}
+  - {fileID: 18346973, guid: a5a557567727a5d4ebb63f1ac78903cf, type: 3}
+  - {fileID: -1094019233, guid: a5a557567727a5d4ebb63f1ac78903cf, type: 3}
+  - {fileID: -848878641, guid: a5a557567727a5d4ebb63f1ac78903cf, type: 3}
   m_PackedSpriteNamesToIndex:
   - Skier_Tilemap_2_11
   - Skier_Tilemap_2_10
@@ -112,6 +130,23 @@ SpriteAtlas:
   - Skier_Tilemap_20
   - Skier_Tilemap_23
   - Skier_Tilemap_22
+  - Skier_tilemap_3_7
+  - Skier_tilemap_3_6
+  - Skier_tilemap_3_5
+  - Skier_tilemap_3_4
+  - Skier_tilemap_3_3
+  - Skier_tilemap_3_2
+  - Skier_tilemap_3_1
+  - Skier_tilemap_3_0
+  - Skier_tilemap_3_9
+  - Skier_tilemap_3_8
+  - Skier_tilemap_3_12
+  - Skier_tilemap_3_13
+  - Skier_tilemap_3_10
+  - Skier_tilemap_3_11
+  - Skier_tilemap_3_16
+  - Skier_tilemap_3_14
+  - Skier_tilemap_3_15
   m_RenderDataMap: {}
   m_Tag: IceTiles
   m_IsVariant: 0

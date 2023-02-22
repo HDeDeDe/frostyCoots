@@ -1,24 +1,33 @@
+using System;
 using UnityEngine;
 
 public class Coots : MonoBehaviour
 {
     public bool template = false;
     CootsManager cm;
-    int position;
-    
+    [NonSerialized]public SpriteRenderer sprite;
+
+    int m_position;
 
     void Start()
     {
+        sprite = GetComponent<SpriteRenderer>();
         cm = GameObject.Find("GameManager").GetComponent<CootsManager>();
-        if(template && cm.GetTemplate() != null) Destroy(this);
-        if(cm.CootsCount() > 22 && !template) Destroy(this);
-        position = cm.AddMe(this);
-        if(position == 1337) Destroy(this);
+        m_position = cm.AddMe(this);
+        if(m_position == 1337) Destroy(gameObject);
     }
 
+    public void SetCoots(Sprite input)
+    {
+        if(template) return;
+        sprite.sprite = input;
+    }
     
     public void Collected()
     {
-        Destroy(this);
+        if(template) return;
+        cm.ImDead(m_position);
+        Debug.Log("Response");
+        Destroy(gameObject);
     }
 }

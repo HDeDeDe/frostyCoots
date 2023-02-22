@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     Transform miniPlayer;
     Transform miniMapCamera;
     public GetThatInput input;
+    CootsManager cm;
 
     TMP_Text speed;
     TMP_Text maxSpeed;
@@ -19,6 +20,7 @@ public class GameManager : MonoBehaviour
     TMP_Text xspeed;
     TMP_Text rotation;
     TMP_Text winner;
+    TMP_Text cootsCount;
     RawImage miniMap;
 
     [Header("Game Variables")]
@@ -57,6 +59,8 @@ public class GameManager : MonoBehaviour
         rotation = GameObject.Find("Canvas/Rotation").GetComponent<TMP_Text>();
         miniMap = GameObject.Find("Canvas/MiniMap").GetComponent<RawImage>();
         winner = GameObject.Find("Canvas/YOU'RE WINNER !").GetComponent<TMP_Text>();
+        cootsCount = GameObject.Find("Canvas/CootsCount").GetComponent<TMP_Text>();
+        cm = GetComponent<CootsManager>();
     }
     
     void Update()
@@ -87,6 +91,9 @@ public class GameManager : MonoBehaviour
         xspeed.SetText(Convert.ToString(Math.Abs(PVTools.Crimp(velocity.x))));
         rotation.SetText(Convert.ToString(PVTools.Crimp(p_rotation.z)));
         miniMap.uvRect = new(0f, 0f, Convert.ToInt32(m_miniMap), 1f);
+
+        string cc = Convert.ToString(cm.m_collectedCoots) + " / " + Convert.ToString(cm.m_cootsTotal);
+        cootsCount.SetText(cc);
 
         if(m_win)
         {
