@@ -1,0 +1,117 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: IceTiles
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 0
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 1
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: acf0b0b870da0ea48bd7317712da4cbc, type: 3}
+    - {fileID: 102900000, guid: a24df2fa15197724dbcfe396ddcda79b, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: -1304243279, guid: 6d975d62d54140142ab20e5ba07d1904, type: 3}
+  - {fileID: -409304969, guid: 6d975d62d54140142ab20e5ba07d1904, type: 3}
+  - {fileID: 1867844255, guid: 6d975d62d54140142ab20e5ba07d1904, type: 3}
+  - {fileID: 321889746, guid: 6d975d62d54140142ab20e5ba07d1904, type: 3}
+  - {fileID: -1085822617, guid: 6d975d62d54140142ab20e5ba07d1904, type: 3}
+  - {fileID: -2008770495, guid: 6d975d62d54140142ab20e5ba07d1904, type: 3}
+  - {fileID: -1483346493, guid: 6d975d62d54140142ab20e5ba07d1904, type: 3}
+  - {fileID: -2038713607, guid: 6d975d62d54140142ab20e5ba07d1904, type: 3}
+  - {fileID: -2048026633, guid: 6d975d62d54140142ab20e5ba07d1904, type: 3}
+  - {fileID: -594488188, guid: 6d975d62d54140142ab20e5ba07d1904, type: 3}
+  - {fileID: -670609877, guid: 6d975d62d54140142ab20e5ba07d1904, type: 3}
+  - {fileID: 306446542, guid: 6d975d62d54140142ab20e5ba07d1904, type: 3}
+  - {fileID: 2142741119, guid: c072b0959e005264c9f7e8c2528bf64c, type: 3}
+  - {fileID: -1462083029, guid: c072b0959e005264c9f7e8c2528bf64c, type: 3}
+  - {fileID: -674882074, guid: c072b0959e005264c9f7e8c2528bf64c, type: 3}
+  - {fileID: -555418347, guid: c072b0959e005264c9f7e8c2528bf64c, type: 3}
+  - {fileID: 707525000, guid: c072b0959e005264c9f7e8c2528bf64c, type: 3}
+  - {fileID: -1635847318, guid: c072b0959e005264c9f7e8c2528bf64c, type: 3}
+  - {fileID: -1625320676, guid: c072b0959e005264c9f7e8c2528bf64c, type: 3}
+  - {fileID: -25673687, guid: c072b0959e005264c9f7e8c2528bf64c, type: 3}
+  - {fileID: -57533995, guid: c072b0959e005264c9f7e8c2528bf64c, type: 3}
+  - {fileID: 277671295, guid: c072b0959e005264c9f7e8c2528bf64c, type: 3}
+  - {fileID: -1881137542, guid: c072b0959e005264c9f7e8c2528bf64c, type: 3}
+  - {fileID: 1713454027, guid: c072b0959e005264c9f7e8c2528bf64c, type: 3}
+  - {fileID: 1346664210, guid: c072b0959e005264c9f7e8c2528bf64c, type: 3}
+  - {fileID: -1959346839, guid: c072b0959e005264c9f7e8c2528bf64c, type: 3}
+  - {fileID: -2012943053, guid: c072b0959e005264c9f7e8c2528bf64c, type: 3}
+  - {fileID: 1760747871, guid: c072b0959e005264c9f7e8c2528bf64c, type: 3}
+  - {fileID: 26039498, guid: c072b0959e005264c9f7e8c2528bf64c, type: 3}
+  - {fileID: -1874603821, guid: c072b0959e005264c9f7e8c2528bf64c, type: 3}
+  - {fileID: -744115701, guid: c072b0959e005264c9f7e8c2528bf64c, type: 3}
+  - {fileID: 1157864713, guid: c072b0959e005264c9f7e8c2528bf64c, type: 3}
+  - {fileID: 1381000899, guid: c072b0959e005264c9f7e8c2528bf64c, type: 3}
+  - {fileID: -226232647, guid: c072b0959e005264c9f7e8c2528bf64c, type: 3}
+  - {fileID: -152685269, guid: c072b0959e005264c9f7e8c2528bf64c, type: 3}
+  - {fileID: -1725017872, guid: c072b0959e005264c9f7e8c2528bf64c, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - Skier_Tilemap_2_11
+  - Skier_Tilemap_2_10
+  - Skier_Tilemap_2_8
+  - Skier_Tilemap_2_9
+  - Skier_Tilemap_2_6
+  - Skier_Tilemap_2_7
+  - Skier_Tilemap_2_4
+  - Skier_Tilemap_2_5
+  - Skier_Tilemap_2_2
+  - Skier_Tilemap_2_3
+  - Skier_Tilemap_2_0
+  - Skier_Tilemap_2_1
+  - Skier_Tilemap_5
+  - Skier_Tilemap_4
+  - Skier_Tilemap_7
+  - Skier_Tilemap_6
+  - Skier_Tilemap_1
+  - Skier_Tilemap_0
+  - Skier_Tilemap_3
+  - Skier_Tilemap_2
+  - Skier_Tilemap_9
+  - Skier_Tilemap_8
+  - Skier_Tilemap_18
+  - Skier_Tilemap_19
+  - Skier_Tilemap_14
+  - Skier_Tilemap_15
+  - Skier_Tilemap_16
+  - Skier_Tilemap_17
+  - Skier_Tilemap_10
+  - Skier_Tilemap_11
+  - Skier_Tilemap_12
+  - Skier_Tilemap_13
+  - Skier_Tilemap_21
+  - Skier_Tilemap_20
+  - Skier_Tilemap_23
+  - Skier_Tilemap_22
+  m_RenderDataMap: {}
+  m_Tag: IceTiles
+  m_IsVariant: 0
