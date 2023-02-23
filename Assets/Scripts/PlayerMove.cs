@@ -23,7 +23,7 @@ public class PlayerMove : MonoBehaviour
     [NonSerialized] public bool m_jumping;
 
     bool m_overrideGroundedMovement;
-    float m_overrideTimer = 3f;
+    [SerializeField]float m_overrideTimer = 3f;
 
     private float AbsVelocityX() { return PVTools.Crimp(Math.Abs(rb.velocity.x)); }
     public Vector2 GetVelocity() 
@@ -150,13 +150,13 @@ public class PlayerMove : MonoBehaviour
     private void MoveFailsafe()
     {
         
-        if(m_grounded)
-        {
-            m_overrideTimer = 3f;
-            m_overrideGroundedMovement = false;
-            return;
-        }
-        if(!m_overrideGroundedMovement && PVTools.Crimp(rb.velocity.magnitude) != 0f)
+        // if(m_grounded)
+        // {
+        //     m_overrideTimer = 3f;
+        //     m_overrideGroundedMovement = false;
+        //     return;
+        // }
+        if(m_grounded || !m_overrideGroundedMovement && PVTools.Crimp(rb.velocity.magnitude) != 0f)
         {
             m_overrideTimer = 3f;
             m_overrideGroundedMovement = false;
