@@ -99,6 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   template: 0
+  sfx: {fileID: 4084699024945801138, guid: c554882ac0220234987394963306a1d3, type: 3}
 --- !u!61 &1857034796242178937
 BoxCollider2D:
   m_ObjectHideFlags: 0

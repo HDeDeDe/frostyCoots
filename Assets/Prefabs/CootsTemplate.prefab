@@ -98,3 +98,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   template: 1
+  sfx: {fileID: 4084699024945801138, guid: c554882ac0220234987394963306a1d3, type: 3}

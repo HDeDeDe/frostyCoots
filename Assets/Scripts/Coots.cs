@@ -6,6 +6,7 @@ public class Coots : MonoBehaviour
     public bool template = false;
     CootsManager cm;
     [NonSerialized]public SpriteRenderer sprite;
+    [SerializeField] GameObject sfx;
 
     int m_position;
 
@@ -28,6 +29,7 @@ public class Coots : MonoBehaviour
         if(template) return;
         cm.ImDead(m_position);
         Debug.Log("Response");
+        Instantiate(sfx, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 }
