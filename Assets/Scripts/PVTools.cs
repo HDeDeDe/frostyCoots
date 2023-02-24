@@ -19,6 +19,8 @@ public static class PVTools
     public const float crimpLimitNegative = -0.000001f;
     public readonly static Vector2 overlapBox = new(0.225f, 0.0625f);
 
+    public static GameManager gm;
+
     public static float Halve(float input) { return input / 2f;}
     public static Vector2 Halve(Vector2 input) { return input / 2f;}
     public static Vector2 CapSpeed(Vector2 input)
@@ -30,5 +32,10 @@ public static class PVTools
     {
         if(input < crimpLimitNegative || input > crimpLimit) return input;
         return 0f;
+    }
+
+    public static void SetManager(GameManager manager)
+    {
+        gm = manager;
     }
 }

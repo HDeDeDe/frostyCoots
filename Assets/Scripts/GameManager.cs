@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     Transform miniMapCamera;
     public GetThatInput input;
     CootsManager cm;
+    AudioSource music;
 
     TMP_Text speed;
     TMP_Text maxSpeed;
@@ -33,14 +34,17 @@ public class GameManager : MonoBehaviour
     [Range(1, 50)][Tooltip("Affects quick jump height.")][SerializeField] int m_quickHeight = 5;
     [Range(50f, 500f)][Tooltip("Affects soft speed cap.")][SerializeField] float m_softSpeedCap = 250f;
     [Tooltip("Affects minimap")][SerializeField] bool m_miniMap = true;
-    [Range(0f, 1f)][Tooltip("Affects SFX volume.")][SerializeField] float m_sfxVolume = 0.65f;
+    [Range(0f, 1f)][Tooltip("Affects SFX volume.")][SerializeField] float m_sfxVolume = 1f;
     [Tooltip("Determines if all coots are required to win.")][SerializeField] bool m_cootsCondition = false;
     [Tooltip("Win.")][SerializeField] bool m_win = false;
+    [Range(0f, 1f)][Tooltip("Music volume.")][SerializeField] float m_musicVolume = 1f;
+    [Range(0f, 1f)][Tooltip("Global volume.")][SerializeField] float m_globalVolume = 1f;
 
     public bool Ready {get; private set;} = false;
 
     void Awake()
     {
+        PVTools.SetManager(this);
         SceneManager.LoadScene("Scenes/Level", LoadSceneMode.Additive);
         SceneManager.LoadScene("Scenes/UI", LoadSceneMode.Additive);
     }
@@ -61,10 +65,12 @@ public class GameManager : MonoBehaviour
         winner = GameObject.Find("Canvas/YOU'RE WINNER !").GetComponent<TMP_Text>();
         cootsCount = GameObject.Find("Canvas/CootsCount").GetComponent<TMP_Text>();
         cm = GetComponent<CootsManager>();
+        music = GameObject.Find("Music").GetComponent<AudioSource>();
     }
     
     void Update()
     {
+        music.volume = 0.6f * MusicVolume();
         Ready = true;
         Physics2D.gravity = new(0f, m_gravity);
 
@@ -112,6 +118,7 @@ public class GameManager : MonoBehaviour
     public float Speed() { return m_speed; }
     public float QuickJump() { return m_quickHeight; }
     public float SoftSpeedCap() { return m_softSpeedCap; }
-    public float SFXVolume() { return m_sfxVolume; }
+    public float SFXVolume() { return m_sfxVolume * m_globalVolume; }
+    public float MusicVolume() { return m_musicVolume * m_globalVolume; }
     public bool Win() { return m_win; }
 }
