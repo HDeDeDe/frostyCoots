@@ -13,7 +13,6 @@ public class GameManager : MonoBehaviour
     Transform miniMapCamera;
     public GetThatInput input;
     CootsManager cm;
-    AudioSource music;
 
     TMP_Text speed;
     TMP_Text maxSpeed;
@@ -65,12 +64,10 @@ public class GameManager : MonoBehaviour
         winner = GameObject.Find("Canvas/YOU'RE WINNER !").GetComponent<TMP_Text>();
         cootsCount = GameObject.Find("Canvas/CootsCount").GetComponent<TMP_Text>();
         cm = GetComponent<CootsManager>();
-        music = GameObject.Find("Music").GetComponent<AudioSource>();
     }
     
     void Update()
     {
-        music.volume = 0.6f * MusicVolume();
         Ready = true;
         Physics2D.gravity = new(0f, m_gravity);
 
