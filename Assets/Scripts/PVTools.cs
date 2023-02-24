@@ -1,6 +1,13 @@
 using System;
 using UnityEngine;
 
+public enum GameMode : byte
+{
+    MAINMENU,
+    PLAYING,
+    GAMEOVER
+}
+
 public enum PlayerState : byte 
 {
     MOVING,
@@ -37,5 +44,10 @@ public static class PVTools
     public static void SetManager(GameManager manager)
     {
         gm = manager;
+    }
+
+    public static void StartGame()
+    {
+        gm.SetGameMode(GameMode.PLAYING);
     }
 }

@@ -58,7 +58,7 @@ public class PlayerMove : MonoBehaviour
 
     private void GetPlayerInput()
     {
-        if(PVTools.gm.Win()) 
+        if(PVTools.gm.GetGameMode() != GameMode.PLAYING) 
         {
             m_moveVec = Vector2.zero;
             m_breaking = false;
@@ -236,7 +236,7 @@ public class PlayerMove : MonoBehaviour
         if(other.gameObject.layer != 9) return;
         if(other.gameObject.CompareTag("Goal"))
         {
-           PVTools.gm.Win(true); 
+           PVTools.gm.Win();
            return;
         }
         Coots the = other.gameObject.GetComponent<Coots>();

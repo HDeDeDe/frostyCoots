@@ -26,7 +26,7 @@ public class Coots : MonoBehaviour
     
     public void Collected()
     {
-        if(template) return;
+        if(template) Application.Quit(1);
         cm.ImDead(m_position);
         Debug.Log("Response");
         Instantiate(sfx, transform.position, Quaternion.identity);

@@ -6,6 +6,8 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
+    GameMode gameMode = GameMode.MAINMENU;
+
     [Header("References")]
     [SerializeField] GameObject playerObject;
     PlayerMove player;
@@ -35,7 +37,6 @@ public class GameManager : MonoBehaviour
     [Tooltip("Affects minimap")][SerializeField] bool m_miniMap = true;
     [Range(0f, 1f)][Tooltip("Affects SFX volume.")][SerializeField] float m_sfxVolume = 1f;
     [Tooltip("Determines if all coots are required to win.")][SerializeField] bool m_cootsCondition = false;
-    [Tooltip("Win.")][SerializeField] bool m_win = false;
     [Range(0f, 1f)][Tooltip("Music volume.")][SerializeField] float m_musicVolume = 1f;
     [Range(0f, 1f)][Tooltip("Global volume.")][SerializeField] float m_globalVolume = 1f;
 
@@ -55,14 +56,14 @@ public class GameManager : MonoBehaviour
 
         miniPlayer = GameObject.Find("MiniMap/MiniPlayer").transform;
         miniMapCamera = GameObject.Find("MiniMap/MiniMapCamera").transform;
-        speed = GameObject.Find("Canvas/Speed").GetComponent<TMP_Text>();
-        maxSpeed = GameObject.Find("Canvas/MaxSpeed").GetComponent<TMP_Text>();
-        jumpHeight = GameObject.Find("Canvas/JumpHeight").GetComponent<TMP_Text>();
-        xspeed = GameObject.Find("Canvas/XSpeed").GetComponent<TMP_Text>();
-        rotation = GameObject.Find("Canvas/Rotation").GetComponent<TMP_Text>();
-        miniMap = GameObject.Find("Canvas/MiniMap").GetComponent<RawImage>();
-        winner = GameObject.Find("Canvas/YOU'RE WINNER !").GetComponent<TMP_Text>();
-        cootsCount = GameObject.Find("Canvas/CootsCount").GetComponent<TMP_Text>();
+        speed = GameObject.Find("Canvas/GameUI/Speed").GetComponent<TMP_Text>();
+        maxSpeed = GameObject.Find("Canvas/GameUI/MaxSpeed").GetComponent<TMP_Text>();
+        jumpHeight = GameObject.Find("Canvas/GameUI/JumpHeight").GetComponent<TMP_Text>();
+        xspeed = GameObject.Find("Canvas/GameUI/XSpeed").GetComponent<TMP_Text>();
+        rotation = GameObject.Find("Canvas/GameUI/Rotation").GetComponent<TMP_Text>();
+        miniMap = GameObject.Find("Canvas/GameUI/MiniMap").GetComponent<RawImage>();
+        winner = GameObject.Find("Canvas/GameUI/YOU'RE WINNER !").GetComponent<TMP_Text>();
+        cootsCount = GameObject.Find("Canvas/GameUI/CootsCount").GetComponent<TMP_Text>();
         cm = GetComponent<CootsManager>();
     }
     
@@ -74,10 +75,10 @@ public class GameManager : MonoBehaviour
         UpdateHud();
     }
 
-    public void Win(bool discard)
+    public void Win()
     {
         if(m_cootsCondition && !cm.AllCoots()) return;
-        m_win = true;
+        gameMode = GameMode.GAMEOVER;
     }
 
     void UpdateHud()
@@ -99,12 +100,17 @@ public class GameManager : MonoBehaviour
         string cc = Convert.ToString(cm.m_collectedCoots) + " / " + Convert.ToString(cm.m_cootsTotal);
         cootsCount.SetText(cc);
 
-        if(m_win)
+        if(gameMode == GameMode.GAMEOVER)
         {
             winner.SetText("YOU WIN!");
             return;
         }
         winner.SetText("");
+    }
+
+    public void SetGameMode(GameMode mode)
+    {
+        gameMode = mode;
     }
 
     public void Panic() { player.Panic(); }
@@ -117,5 +123,5 @@ public class GameManager : MonoBehaviour
     public float SoftSpeedCap() { return m_softSpeedCap; }
     public float SFXVolume() { return m_sfxVolume * m_globalVolume; }
     public float MusicVolume() { return m_musicVolume * m_globalVolume; }
-    public bool Win() { return m_win; }
+    public GameMode GetGameMode(){ return gameMode; }
 }
