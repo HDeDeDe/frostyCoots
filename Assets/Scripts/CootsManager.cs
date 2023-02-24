@@ -5,7 +5,6 @@ using UnityEngine;
 public class CootsManager : MonoBehaviour
 {
     bool setUp;
-    GameManager gm;
     [SerializeField]List<Coots> m_cootsList;
     [SerializeField]List<Sprite> m_sprites;
     [SerializeField]Coots templateCoots;
@@ -17,12 +16,11 @@ public class CootsManager : MonoBehaviour
     }
     void Start()
     {
-        gm = GetComponent<GameManager>();
     }
 
     void Update()
     {
-        if(!gm.Ready) return;
+        if(!PVTools.gm.Ready) return;
         if(!setUp) SetUp();
     }
 

@@ -4,7 +4,6 @@ using UnityEngine;
 //test
 public class PlayerMove : MonoBehaviour
 {
-    GameManager gm;
     [Header("References")]
     [SerializeField] Transform overlapPoint;
     [SerializeField] LayerMask groundLayer;
@@ -41,8 +40,6 @@ public class PlayerMove : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         rb.freezeRotation = true;
-
-        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     private void Update()
@@ -61,16 +58,16 @@ public class PlayerMove : MonoBehaviour
 
     private void GetPlayerInput()
     {
-        if(gm.Win()) 
+        if(PVTools.gm.Win()) 
         {
             m_moveVec = Vector2.zero;
             m_breaking = false;
             m_readyToJump = false;
             return;
         }
-        m_moveVec = gm.input.GetMovementVector();;
-        m_breaking = gm.input.GetHalt();
-        m_readyToJump = gm.input.GetQuickJump();
+        m_moveVec = PVTools.gm.input.GetMovementVector();;
+        m_breaking = PVTools.gm.input.GetHalt();
+        m_readyToJump = PVTools.gm.input.GetQuickJump();
     }
     private void MovePlayer()
     {
@@ -87,7 +84,7 @@ public class PlayerMove : MonoBehaviour
             }
             m_topSpeed = 0f;
             m_storedBreak = 0f;
-            Vector2 potentialVector = PVTools.Halve(gm.AirMomentum() * gm.Speed() * m_moveVec);
+            Vector2 potentialVector = PVTools.Halve(PVTools.gm.AirMomentum() * PVTools.gm.Speed() * m_moveVec);
             rb.velocity += potentialVector;
             return;
         }
@@ -98,9 +95,9 @@ public class PlayerMove : MonoBehaviour
         if(!m_breaking)
         {
             m_launched = false;
-            Vector2 potentialVector = PVTools.Halve(m_moveVec * gm.Speed());
+            Vector2 potentialVector = PVTools.Halve(m_moveVec * PVTools.gm.Speed());
             if(m_readyToJump) potentialVector = PVTools.Halve(potentialVector);
-            if(AbsVelocityX() > gm.SoftSpeedCap()) potentialVector = Vector2.zero;
+            if(AbsVelocityX() > PVTools.gm.SoftSpeedCap()) potentialVector = Vector2.zero;
             if(m_storedBreak > 0f) 
             {
                 m_launched = true;
@@ -122,12 +119,12 @@ public class PlayerMove : MonoBehaviour
 
         if(m_readyToJump)
         {
-            rb.AddForce(new(0f, gm.QuickJump()), ForceMode2D.Impulse);
+            rb.AddForce(new(0f, PVTools.gm.QuickJump()), ForceMode2D.Impulse);
             m_jumping = true;
             return;
         }
 
-        float percent = m_topSpeed / (gm.BreakAggro() * 50);
+        float percent = m_topSpeed / (PVTools.gm.BreakAggro() * 50);
         if(AbsVelocityX() > percent)
         {
             Vector2 potentialVector;
@@ -141,7 +138,7 @@ public class PlayerMove : MonoBehaviour
             {
                 rb.velocity += potentialVector;
             }
-            m_storedBreak += percent * gm.JumpMultiplier();
+            m_storedBreak += percent * PVTools.gm.JumpMultiplier();
             return;
         }
         rb.velocity = new(0f, rb.velocity.y);
@@ -226,7 +223,7 @@ public class PlayerMove : MonoBehaviour
     {
         if(AbsVelocityX() == 0f) return;
         float temp = rb.velocity.x / AbsVelocityX();
-        rb.AddForce(new(gm.PushMomentum() * temp, 0f), ForceMode2D.Impulse);
+        rb.AddForce(new(PVTools.gm.PushMomentum() * temp, 0f), ForceMode2D.Impulse);
     }
 
     void OnDrawGizmos()
@@ -239,7 +236,7 @@ public class PlayerMove : MonoBehaviour
         if(other.gameObject.layer != 9) return;
         if(other.gameObject.CompareTag("Goal"))
         {
-           gm.Win(true); 
+           PVTools.gm.Win(true); 
            return;
         }
         Coots the = other.gameObject.GetComponent<Coots>();
