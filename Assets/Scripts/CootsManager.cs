@@ -14,9 +14,6 @@ public class CootsManager : MonoBehaviour
     {
         m_cootsList.Clear();
     }
-    void Start()
-    {
-    }
 
     void Update()
     {

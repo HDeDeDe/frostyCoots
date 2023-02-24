@@ -40,9 +40,9 @@ public class PlayerSFX : MonoBehaviour
     private float SetVolume()
     {
         float volume = PVTools.Crimp(player.GetVelocity().magnitude);
-        if(m_state is PlayerState.AIRBORNE or PlayerState.LAUNCHING) volume = volume / 2f;
+        if(m_state is PlayerState.AIRBORNE or PlayerState.LAUNCHING) volume /= 2f;
         if(volume > PVTools.gm.SoftSpeedCap()) return 1f;
-        volume = volume / PVTools.gm.SoftSpeedCap();
+        volume /= PVTools.gm.SoftSpeedCap();
         return volume * m_localVolume * PVTools.gm.SFXVolume();
     }
 
