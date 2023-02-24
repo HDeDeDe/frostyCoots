@@ -6,6 +6,8 @@ TagManager:
   tags:
   - PlayerSpawn
   - Goal
+  - Coots
+  - Teleporter
   layers:
   - Default
   - TransparentFX

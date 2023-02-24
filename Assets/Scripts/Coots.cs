@@ -26,9 +26,12 @@ public class Coots : MonoBehaviour
     
     public void Collected()
     {
-        if(template) Application.Quit(1);
+        if(template) 
+        {
+            Application.Quit();
+            return;
+        }
         cm.ImDead(m_position);
-        Debug.Log("Response");
         Instantiate(sfx, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }

@@ -239,8 +239,15 @@ public class PlayerMove : MonoBehaviour
            PVTools.gm.Win();
            return;
         }
-        Coots the = other.gameObject.GetComponent<Coots>();
-        Debug.Log("Template.");
-        the.Collected();
+        if(other.gameObject.CompareTag("Coots"))
+        {
+            Coots the = other.gameObject.GetComponent<Coots>();
+            the.Collected();
+        }
+        if(other.gameObject.CompareTag("Teleporter"))
+        {
+            Teleporter the = other.gameObject.GetComponent<Teleporter>();
+            transform.position = the.GetTeleport();
+        }
     }
 }
