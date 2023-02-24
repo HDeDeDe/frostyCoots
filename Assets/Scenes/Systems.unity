@@ -358,7 +358,7 @@ MonoBehaviour:
   m_cootsCondition: 1
   m_win: 0
   m_musicVolume: 1
-  m_globalVolume: 1
+  m_globalVolume: 0.5
 --- !u!4 &390779165
 Transform:
   m_ObjectHideFlags: 0

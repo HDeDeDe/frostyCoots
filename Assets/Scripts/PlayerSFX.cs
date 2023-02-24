@@ -26,6 +26,7 @@ public class PlayerSFX : MonoBehaviour
         PlayJump();
         PlaySound();
         SFX.volume = SetVolume();
+        JumpSFX.volume = PVTools.gm.SFXVolume();
     }
 
     private void PlayJump()
