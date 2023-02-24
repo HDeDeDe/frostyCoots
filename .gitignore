@@ -12,3 +12,4 @@ omnisharp.json
 !Assets/
 !Packages/
 !ProjectSettings/
+Build/
