@@ -6,7 +6,7 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-    GameMode gameMode = GameMode.MAINMENU;
+    
 
     [Header("References")]
     [SerializeField] GameObject playerObject;
@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
     RawImage miniMap;
 
     [Header("Game Variables")]
+    [Tooltip("Set starting game mode.")][SerializeField] GameMode gameMode = GameMode.MAINMENU;
     [Range(-100, 0)][Tooltip("Affects Stardenburdenhardenbart.")][SerializeField] float m_gravity;
     [Range(0f, 5f)][Tooltip("Affects how high the player jumps.")][SerializeField] float m_jumpMultiplier = 1.1f;
     [Range(0f, 5f)][Tooltip("Affects how long it takes to break.")][SerializeField] float m_breakAggressiveness = 1.15f;
