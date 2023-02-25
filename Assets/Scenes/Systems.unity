@@ -354,7 +354,7 @@ MonoBehaviour:
   m_speed: 1.2
   m_quickHeight: 6
   m_softSpeedCap: 75
-  m_miniMap: 1
+  m_miniMap: 0
   m_sfxVolume: 1
   m_cootsCondition: 0
   m_musicVolume: 1
