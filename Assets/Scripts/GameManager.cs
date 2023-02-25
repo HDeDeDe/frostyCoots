@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
     TMP_Text winner;
     TMP_Text cootsCount;
     RawImage miniMap;
+    GameObject debugHUD;
 
     [Header("Game Variables")]
     [Tooltip("Set starting game mode.")][SerializeField] GameMode gameMode = GameMode.MAINMENU;
@@ -40,6 +41,7 @@ public class GameManager : MonoBehaviour
     [Tooltip("Determines if all coots are required to win.")][SerializeField] bool m_cootsCondition = false;
     [Range(0f, 1f)][Tooltip("Music volume.")][SerializeField] float m_musicVolume = 1f;
     [Range(0f, 1f)][Tooltip("Global volume.")][SerializeField] float m_globalVolume = 1f;
+    [SerializeField] bool m_debug;
 
     public bool Ready {get; private set;} = false;
 
@@ -57,14 +59,15 @@ public class GameManager : MonoBehaviour
 
         miniPlayer = GameObject.Find("MiniMap/MiniPlayer").transform;
         miniMapCamera = GameObject.Find("MiniMap/MiniMapCamera").transform;
-        speed = GameObject.Find("Canvas/GameUI/Speed").GetComponent<TMP_Text>();
-        maxSpeed = GameObject.Find("Canvas/GameUI/MaxSpeed").GetComponent<TMP_Text>();
-        jumpHeight = GameObject.Find("Canvas/GameUI/JumpHeight").GetComponent<TMP_Text>();
-        xspeed = GameObject.Find("Canvas/GameUI/XSpeed").GetComponent<TMP_Text>();
-        rotation = GameObject.Find("Canvas/GameUI/Rotation").GetComponent<TMP_Text>();
+        speed = GameObject.Find("Canvas/GameUI/Debug/Speed").GetComponent<TMP_Text>();
+        maxSpeed = GameObject.Find("Canvas/GameUI/Debug/MaxSpeed").GetComponent<TMP_Text>();
+        jumpHeight = GameObject.Find("Canvas/GameUI/Debug/JumpHeight").GetComponent<TMP_Text>();
+        xspeed = GameObject.Find("Canvas/GameUI/Debug/XSpeed").GetComponent<TMP_Text>();
+        rotation = GameObject.Find("Canvas/GameUI/Debug/Rotation").GetComponent<TMP_Text>();
         miniMap = GameObject.Find("Canvas/GameUI/MiniMap").GetComponent<RawImage>();
         winner = GameObject.Find("Canvas/GameUI/YOU'RE WINNER !").GetComponent<TMP_Text>();
         cootsCount = GameObject.Find("Canvas/GameUI/CootsCount").GetComponent<TMP_Text>();
+        debugHUD = GameObject.Find("Canvas/GameUI/Debug");
         cm = GetComponent<CootsManager>();
     }
     
@@ -86,17 +89,22 @@ public class GameManager : MonoBehaviour
     {
         miniPlayer.position = new(player.transform.position.x, player.transform.position.y, -1f);
         miniMapCamera.position = new(player.transform.position.x, miniMapCamera.position.y, -10f);
+        
+        debugHUD.SetActive(m_debug);
+        if(m_debug)
+        {
+            Vector2 velocity = player.GetVelocity();
+            Vector2 speedJump = player.GetSpeedInfo();
+            Vector3 p_rotation = player.GetFloorRotation();
 
-        Vector2 velocity = player.GetVelocity();
-        Vector2 speedJump = player.GetSpeedInfo();
-        Vector3 p_rotation = player.GetFloorRotation();
+            speed.SetText(Convert.ToString(PVTools.Crimp(velocity.magnitude)));
+            maxSpeed.SetText(Convert.ToString(PVTools.Crimp(speedJump.x)));
+            jumpHeight.SetText(Convert.ToString(PVTools.Crimp(speedJump.y)));
+            xspeed.SetText(Convert.ToString(Math.Abs(PVTools.Crimp(velocity.x))));
+            rotation.SetText(Convert.ToString(PVTools.Crimp(p_rotation.z)));
+        }
 
-        speed.SetText(Convert.ToString(PVTools.Crimp(velocity.magnitude)));
-        maxSpeed.SetText(Convert.ToString(PVTools.Crimp(speedJump.x)));
-        jumpHeight.SetText(Convert.ToString(PVTools.Crimp(speedJump.y)));
-        xspeed.SetText(Convert.ToString(Math.Abs(PVTools.Crimp(velocity.x))));
-        rotation.SetText(Convert.ToString(PVTools.Crimp(p_rotation.z)));
-        miniMap.uvRect = new(0f, 0f, Convert.ToInt32(m_miniMap), 1f);
+        miniMap.enabled = m_miniMap;
 
         string cc = Convert.ToString(cm.m_collectedCoots) + " / " + Convert.ToString(cm.m_cootsTotal);
         cootsCount.SetText(cc);
