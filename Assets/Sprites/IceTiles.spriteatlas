@@ -97,6 +97,10 @@ SpriteAtlas:
   - {fileID: -1474240221, guid: aeaa73979b3633240a27aa6ea5f49104, type: 3}
   - {fileID: -793816354, guid: aeaa73979b3633240a27aa6ea5f49104, type: 3}
   - {fileID: -801165653, guid: aeaa73979b3633240a27aa6ea5f49104, type: 3}
+  - {fileID: -520936934, guid: ef0123eb8e12bc44181660968e2609de, type: 3}
+  - {fileID: 254376704, guid: ef0123eb8e12bc44181660968e2609de, type: 3}
+  - {fileID: 293532849, guid: ef0123eb8e12bc44181660968e2609de, type: 3}
+  - {fileID: -1242444012, guid: ef0123eb8e12bc44181660968e2609de, type: 3}
   m_PackedSpriteNamesToIndex:
   - Skier_Tilemap_2_11
   - Skier_Tilemap_2_10
@@ -155,6 +159,10 @@ SpriteAtlas:
   - AAAAAAAAAAAAAAAAAAAAAA_1
   - AAAAAAAAAAAAAAAAAAAAAA_2
   - AAAAAAAAAAAAAAAAAAAAAA_3
+  - Transparent fade tilemape_3
+  - Transparent fade tilemape_2
+  - Transparent fade tilemape_1
+  - Transparent fade tilemape_0
   m_RenderDataMap: {}
   m_Tag: IceTiles
   m_IsVariant: 0
